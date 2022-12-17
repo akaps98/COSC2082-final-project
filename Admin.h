@@ -12,7 +12,13 @@ private:
     string password = "tony1234";
 
 public:
+    Admin() {};
+
     Admin(string username, string password);
+
+    string getUsername();
+
+    string getPassword();
 };
 
 #endif

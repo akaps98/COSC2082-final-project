@@ -13,6 +13,7 @@
 
 #include "Member.h"
 #include "House.h"
+#include "Admin.h"
 
 using std::string;
 using std::cout;
@@ -36,19 +37,21 @@ public:
 
     void loginByAdmin();
 
-    void showHouseByGuest(vector<House> houseList);
+    void showAllHouseByGuest(vector<House> houseList); // by guest
 
-    void showHouseByMember();
+    void showAllHouseByMember(vector<House> houseList); // by member
+
+    void showAllInfo(vector<Member> memberList); // by admin
 
     void showMyInfo(Member member);
 
     void showMember();
 
-    bool saveAllDataByNewMember(Member member); // only for new member (registration)
+    bool saveAllDataByNewMember(Member member); // only for new member (registration) & always be run when the program in terminated
 
-    bool saveAllDataByExistMember(Member member); // to update information (after owner/buyer checkout)
+    bool saveAllDataByExistMember(Member member); // to update information (after owner/buyer checkout) & always be run when the program in terminated
 
-    bool saveAllDataByHouse(House house); // to update information (after owner/buyer checkout)
+    bool saveAllDataByHouse(House house); // to update information (after owner/buyer checkout) & always be run when the program in terminated
 
     vector<Member> getMemberList();
 

@@ -37,13 +37,13 @@ int main() {
             getline(cin, choice);
         } while (choice == "");
 
-        if(choice == "1") {
-                while(1) {
+        if(choice == "1") { // customer chooses 'Guest'
+            while(1) {
                 cout << "------------------------\n"
-                "This is guest menu: \n";  
+                    << "This is guest menu: \n";  
                 cout << "0. Exit\n"
-                     << "1. Registration\n"
-                     << "2. View information of all houses\n";
+                    << "1. Registration\n"
+                    << "2. View information of all houses\n";
                 cout << "Enter your choice: ";
 
                 string guestChoice;
@@ -51,47 +51,50 @@ int main() {
                     getline(cin, guestChoice);
                 } while (guestChoice == "");
 
-                if(guestChoice == "0") {
+                if(guestChoice == "0") { // Guest chooses 0. exit
                     cout << "GOODBYE!";
                     break;
-                } else if(guestChoice == "1") {
+                } else if(guestChoice == "1") {  // Guest chooses 1. Registration
                     Member doRegister;
                     Member newMember = doRegister.registration(sys.getMemberList()); // After registration,
-                    cout << "------------------------\n"   // go to member menu autonatically by system
-                            "This is member menu: \n";  
-                    cout << "0. Exit\n"
-                        << "1. View the user information\n";
-                    cout << "Enter your choice: ";
+                    while(1) {
+                        cout << "------------------------\n"   // go to member menu autonatically by system
+                            << "This is member menu: \n";  
+                        cout << "0. Exit\n"
+                            << "1. View the user information\n";
+                        cout << "Enter your choice: ";
 
-                    string memberChoice;
-                    do {
-                        getline(cin, memberChoice);
-                    } while (memberChoice == "");
+                        string memberChoice;
+                        do {
+                            getline(cin, memberChoice);
+                        } while (memberChoice == "");
 
-                    if(memberChoice == "0") {
-                        sys.saveAllDataByNewMember(newMember);
-                        cout << "GOODBYE!\n";
-                        break;
-                    } else if (memberChoice == "1") {
-                        sys.showMyInfo(newMember);
+                        if(memberChoice == "0") {
+                            sys.saveAllDataByNewMember(newMember);
+                            cout << "GOODBYE!\n";
+                            break;
+                        } else if (memberChoice == "1") {
+                            sys.showMyInfo(newMember);
+                        }
                     }
-
-                } else if(guestChoice == "2") {
-                    sys.showHouseByGuest(sys.getHouseList());
-                } else {
+                    break;
+                } else if(guestChoice == "2") { // Guest chooses 2. View information of all houses
+                    sys.showAllHouseByGuest(sys.getHouseList());
+                } else { // Member chooses invalid option
                     cout << "You've choosen wrong option!\n"
                         << "------------------------\n";
                 }
             }
             break;
-        } else if(choice == "2") {
+        } else if(choice == "2") { // customer chooses 'Member'
             cout << "------------------------\n";
             Member loggedInMember = sys.loginByMember(sys.getMemberList(), sys.getHouseList());
-            cout << "------------------------\n";   // go to member menu after logged in successfully
-                while(1) {
-                "This is member menu: \n";  
+            while(1) {
+                cout << "------------------------\n"   // go to member menu after logged in successfully
+                     << "This is member menu: \n";  
                 cout << "0. Exit\n"
-                     << "1. View the user information\n";
+                     << "1. View the user information\n"
+                     << "2. View all house information\n";
                 cout << "Enter your choice: ";
 
                 string memberChoice;
@@ -99,22 +102,43 @@ int main() {
                     getline(cin, memberChoice);
                 } while (memberChoice == "");
 
-                if(memberChoice == "0") {
+                if(memberChoice == "0") { // Member chooses 0. Exit
                     //sys.saveAllDataByExistMember(loggedInMember);
                     cout << "GOODBYE!\n";
                     break;
-                } else if (memberChoice == "1") {
+                } else if(memberChoice == "1") { // Member chooses 1. View the user information
                     sys.showMyInfo(loggedInMember);
+                } else if(memberChoice == "2") { // Member chooses 2. View all house information
+                    sys.showAllHouseByMember(sys.getHouseList());
                 }
             }
             break;
-        } else if(choice == "3") {
+        } else if(choice == "3") { // customer chooses 'Admin'
+            sys.loginByAdmin();
             while(1) {
                 cout << "------------------------\n"
-                     <<"This is admin menu: \n";
+                     << "This is admin menu: \n";
+                cout << "0. Exit\n"
+                     << "1. View all user/house information\n";
+                cout << "Enter your choice: ";
+
+                string adminChoice;
+                do {
+                    getline(cin, adminChoice);
+                } while (adminChoice == "");
+
+                if(adminChoice == "0") { // Member chooses 0. Exit
+                    cout << "GOODBYE!";
+                    break;
+                } else if(adminChoice == "1") { // Member chooses 1. View all user/house information
+                    sys.showAllInfo(sys.getMemberList());
+                } else { // Member chooses invalid option
+                    cout << "You've choosen wrong option!\n"
+                         << "------------------------\n";
+                }
             }
             break;
-        } else {
+        } else { // customer chooses invalid option
             cout << "You've choosen wrong option!\n"
                  << "------------------------\n";
         }

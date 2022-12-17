@@ -116,8 +116,7 @@ Member Member::registration(vector<Member> memberList) {
 
     Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false)); 
 
-    cout << "Registration has been done succuessfully!\n"
-         << "------------------------\n";
+    cout << "Registration has been done succuessfully!\n\n";
 
     return newMember;
 }
