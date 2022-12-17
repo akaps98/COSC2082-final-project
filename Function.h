@@ -10,8 +10,6 @@ class Function {
 public:
     Function() {};
 
-    Function(string inputName);
-
     string toUpper(string word);
 
     string toLower(string word);
