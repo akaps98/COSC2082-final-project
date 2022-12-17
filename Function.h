@@ -7,9 +7,6 @@
 using std::string;
 
 class Function {
-private:
-    string name;
-    
 public:
     Function() {};
 
