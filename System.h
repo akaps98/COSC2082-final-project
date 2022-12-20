@@ -43,6 +43,10 @@ public:
 
     void showAllInfo(vector<Member> memberList); // by admin
 
+    void listHouseAvailable(vector<Member> memberList, vector<House> houseList);
+
+    void searchAllAvailableHouses(vector<Member> memberList, vector<House> houseList);
+
     void showMyInfo(Member member);
 
     void showMember();

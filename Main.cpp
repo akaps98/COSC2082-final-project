@@ -94,7 +94,9 @@ int main() {
                      << "This is member menu: \n";  
                 cout << "0. Exit\n"
                      << "1. View the user information\n"
-                     << "2. View all house information\n";
+                     << "2. View all house information\n"
+                     << "3. List / Unlist a house to be occupied\n"
+                     << "4. Search for all available suitable houses for a particular city\n";
                 cout << "Enter your choice: ";
 
                 string memberChoice;
@@ -110,6 +112,10 @@ int main() {
                     sys.showMyInfo(loggedInMember);
                 } else if(memberChoice == "2") { // Member chooses 2. View all house information
                     sys.showAllHouseByMember(sys.getHouseList());
+                } else if(memberChoice == "3") { // Member chooses 3. List / Unlist a house to be occupied
+                //     sys.showAllHouseByMember(sys.getHouseList());
+                } else if(memberChoice == "4") { // Member chooses 4. Search for all available suitable houses for a particular city
+                    sys.searchAllAvailableHouses(sys.getMemberList(), sys.getHouseList());
                 }
             }
             break;
