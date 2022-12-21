@@ -14,6 +14,7 @@
 #include "Member.h"
 #include "House.h"
 #include "Admin.h"
+#include "Function.h"
 
 using std::string;
 using std::cout;
@@ -43,19 +44,17 @@ public:
 
     void showAllInfo(vector<Member> memberList); // by admin
 
-    void listHouseAvailable(vector<Member> memberList, vector<House> houseList);
+    void listHouseAvailable(Member member, vector<House> houseList);
 
-    void searchAllAvailableHouses(vector<Member> memberList, vector<House> houseList);
+    void searchAllAvailableHouses(Member member, vector<House> houseList);
 
     void showMyInfo(Member member);
 
     void showMember();
 
-    bool saveAllDataByNewMember(Member member); // only for new member (registration) & always be run when the program in terminated
+    bool saveData(Member member);
 
-    bool saveAllDataByExistMember(Member member); // to update information (after owner/buyer checkout) & always be run when the program in terminated
-
-    bool saveAllDataByHouse(House house); // to update information (after owner/buyer checkout) & always be run when the program in terminated
+    bool saveAllData(bool checkNewMember, vector<Member> memberList, Member member); // always be run when the program in terminated
 
     vector<Member> getMemberList();
 

@@ -16,15 +16,19 @@ private:
     vector<string> comment;
     bool occupied = false; // to check the condition (true : occupied / false : not occupied)
     bool listed = false; // to check it is on sale or not (true : it is on sale / false: not sale)
-    // vector<Request> requestList;
-    vector<string> startPoint;
-    vector<string> endPoint;
-    vector<int> requiredRating;
+    
+    // after listing,
+    string startPoint;
+    string endPoint;
+    double requiredCredit;
+    int requiredRating;
 
 public:
     House() {};
 
-    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed, vector<string> startPoint, vector<string> endPoint, vector<int> requiredRating);
+    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed); // not on list
+
+    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed, string startPoint, string endPoint, double requiredCredit, int requiredRating); // on list
 
     int getAvg();
 
@@ -48,11 +52,13 @@ public:
 
     bool getListed();
 
-    vector<string> getStartPoint();
+    string getStartPoint();
 
-    vector<string> getEndPoint();
+    string getEndPoint();
 
-    vector<int> getRequiredRating();
+    double getRequiredCredit();
+
+    int getRequiredRating();
     
     // setter
 
@@ -68,12 +74,13 @@ public:
 
     void setListed(bool listed);
 
-    void setStartPoint(vector<string> startPoint);
+    void setStartPoint(string startPoint);
 
-    void setEndPoint(vector<string> endPoint);
+    void setEndPoint(string endPoint);
 
-    void setRequiredRating(vector<int> requiredRating);
+    void setRequiredCredit(double requiredCredit);
 
+    void setRequiredRating(int requiredRating);
 };
 
 #endif

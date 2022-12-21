@@ -3,15 +3,25 @@
 using std::string;
 using std::cout;
 
-House::House(string location = "", string description = "", vector<int> rating = {}, vector<string> comment = {}, bool occupied = false, bool listed = false, vector<string> startPoint = {}, vector<string> endPoint = {}, vector<int> requiredRating = {})  {
-    this->location = location,
-    this->description = description,
+House::House(string location = "", string description = "", vector<int> rating = {}, vector<string> comment = {}, bool occupied = 0, bool listed = 0) {
+    this->location = location;
+    this->description = description;
+    this->rating = rating;
+    this->comment = comment;
+    this->occupied = occupied;
+    this->listed = listed;
+}
+
+House::House(string location = "", string description = "", vector<int> rating = {}, vector<string> comment = {}, bool occupied = 0, bool listed = 0, string startPoint = "", string endPoint = "", double requiredCredit = 0, int requiredRating = 0) {
+    this->location = location;
+    this->description = description;
     this->rating = rating;
     this->comment = comment;
     this->occupied = occupied;
     this->listed = listed;
     this->startPoint = startPoint;
     this->endPoint = endPoint;
+    this->requiredCredit = requiredCredit;
     this->requiredRating = requiredRating;
 }
 
@@ -65,15 +75,19 @@ bool House::getListed() {
     return listed;
 };
 
-vector<string> House::getStartPoint() {
+string House::getStartPoint() {
     return startPoint;
 };
 
-vector<string> House::getEndPoint() {
+string House::getEndPoint() {
     return endPoint;
 };
 
-vector<int> House::getRequiredRating() {
+double House::getRequiredCredit() {
+    return requiredCredit;
+}
+
+int House::getRequiredRating() {
     return requiredRating;
 };
 
@@ -103,14 +117,18 @@ void House::setListed(bool listed) {
     this->listed = listed;
 };
 
-void House::setStartPoint(vector<string> startPoint) {
+void House::setStartPoint(string startPoint) {
     this->startPoint = startPoint;
 };
 
-void House::setEndPoint(vector<string> endPoint) {
+void House::setEndPoint(string endPoint) {
     this->endPoint = endPoint;
 };
 
-void House::setRequiredRating(vector<int> requiredRating) {
+void House::setRequiredCredit(double requiredCredit) {
+    this->requiredCredit = requiredCredit;
+}
+
+void House::setRequiredRating(int requiredRating) {
     this->requiredRating = requiredRating;
 };
