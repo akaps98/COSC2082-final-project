@@ -114,7 +114,7 @@ Member Member::registration(vector<Member> memberList) {
         getline(cin, inputDesc);
     } while (inputDesc == "");
 
-    Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false)); 
+    Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false, {}, {}, {})); 
 
     cout << "Registration has been done succuessfully!\n\n";
 

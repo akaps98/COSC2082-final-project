@@ -17,11 +17,14 @@ private:
     bool occupied = false; // to check the condition (true : occupied / false : not occupied)
     bool listed = false; // to check it is on sale or not (true : it is on sale / false: not sale)
     // vector<Request> requestList;
+    vector<string> startPoint;
+    vector<string> endPoint;
+    vector<int> requiredRating;
 
 public:
     House() {};
 
-    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed);
+    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed, vector<string> startPoint, vector<string> endPoint, vector<int> requiredRating);
 
     int getAvg();
 
@@ -44,6 +47,12 @@ public:
     bool getOccupied();
 
     bool getListed();
+
+    vector<string> getStartPoint();
+
+    vector<string> getEndPoint();
+
+    vector<int> getRequiredRating();
     
     // setter
 
@@ -58,6 +67,13 @@ public:
     void setOccupied(bool occupied);
 
     void setListed(bool listed);
+
+    void setStartPoint(vector<string> startPoint);
+
+    void setEndPoint(vector<string> endPoint);
+
+    void setRequiredRating(vector<int> requiredRating);
+
 };
 
 #endif
