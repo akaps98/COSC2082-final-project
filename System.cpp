@@ -281,18 +281,8 @@ void System::showAllHouseByMember(vector<House> houseList) {
 
 
 void System::listHouseAvailable(Member member, vector<House> houseList) {
-    // 이 method는 회원가입된(1.Guest -> registration) or 로그인된(2.Member) 유저들이 자신들의 집을 판매 리스트에 올리기 위함.
-    // 고로 member class만 있어도 될듯
-    // Member class의 listed가 false인 경우에는 "리스트에 올리시겠습니까?" 같은 질문으로 올리게끔 하고,
-    // Member class의 listed가 true인 경우에는 "리스트에서 내리시겠습니까?" 같은 질문으로 내리게 함.
-    // start point, end point, total required credit, required minimun rating을 각각 순서대로 묻고 입력받은 뒤 
     // member class의 house class의 attributes들을 각각 추가해주고(변경이 아닌 추가, 왜냐면 listed가 false인 상태에서 시작하기 때문), listed는 true로 변경.
     // listed가 true인 경우에는 반대로 모든 attributes들을 지워주고, false로 변경. (지금 승민이 너가 만든 이 메소드는 갈아 엎어야해)
-    // 아마 내가 생각했을 때는 이 기능 실행하고 난 뒤엔 프로그램을 자동으로 종료해야 할거 같아
-    // 왜냐면 프로그램이 종료 될 때만 데이터가 저장된다는 전제조건이 있기 때문에,
-    // Feature 6. search available houses를 구현하기 위해 강제 종료가 되어야 하지 않나 생각들어. (깃허브 올리면서 질문 올렸으니 일단 기다려 보는걸로)
-    // 강제 종료는 Main에서 구현하면 되니까 일단 기다려보고, 만약 교수님이 강제종료를 구현해서 데이터 저장해도된다고 하면 그렇게 하자.
-    // 여러가지 방법 생각해봤는데 딱히 마땅한 방법이 없는듯. 같은 이유로 Feature 6. search available houses 실행 이후에도 강제종료 시키고 데이터 저장을 해야할듯.
 
     // 추가로 카톡에 보내놨지만 6번 기능에서 도시 검색 후에 시간(start/end)도 검색할 수 있게 기능 넣어줘. 
     // 도시랑 시간 둘 다 확인하고 맞는 집들만 정보 나오게끔.
@@ -310,67 +300,102 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
     int requiredRating = 0;
     double requiredCredit = 0;
 
+    House *H;
+
     for(House house : houseList) {
-        if(house.getListed() == false) {  // if not listed
-            while(true) {
-                cout << "Enter a start point in ddmmyyyy: \n";
-                do {
-                    getline(cin, startPoint);
-                } while(startPoint == "");
+        if(member.getHouse().getListed() == false) {  // if not listed
+            string listChoice;
+            cout << "Do you want to list your house? \n"
+                << "Enter Y or N: ";
+            do {
+                getline(cin, listChoice);
+            } while(listChoice == "");
 
-                int check = 0;
+            if(func.toUpper(listChoice) == "Y") {
+                while(true) {
+                    cout << "Enter a start point in yyyymmdd: \n";
+                    do {
+                        getline(cin, startPoint);
+                    } while(startPoint == "");
 
-                if((startPoint[0] == '0' || startPoint[0] == '1' || startPoint[0] == '2' || startPoint[0] == '3') && (startPoint[2] == '0' || startPoint[2] == '1')) {  // check the format of dd & mm
-                    check = 1;
+                    int check = 0;
 
-                    break;
-                } else {
-                    cout << "Please enter a valid start point!";
+                    if((startPoint[4] == '0' || startPoint[4] == '1')  &&  (startPoint[6] == '0' || startPoint[6] == '1' || startPoint[6] == '2' || startPoint[6] == '3')) {  // check the format of dd & mm
+                        check = 1;
+                        break;
+                    } else {
+                        cout << "Please enter a valid start point!";
+                    }
                 }
-            }
 
-            while(true) {
-                cout << "Enter a end point in ddmmyyyy: \n";
-                do {
-                    getline(cin, endPoint);
-                } while(endPoint == "");
+                while(true) {
+                    cout << "Enter a end point in ddmmyyyy: \n";
+                    do {
+                        getline(cin, endPoint);
+                    } while(endPoint == "");
 
-                int check = 0;
+                    int check = 0;
 
-                if((endPoint[0] == '0' || endPoint[0] == '1' || endPoint[0] == '2' || endPoint[0] == '3') && (endPoint[2] == '0' || endPoint[2] == '1')) {  // check the format of dd & mm
-                    check = 1;
-
-                    break;
-                } else {
-                    cout << "Please enter a valid end point!";
+                    if((endPoint[4] == '0' || endPoint[4] == '1')  &&  (endPoint[6] == '0' || endPoint[6] == '1' || endPoint[6] == '2' || endPoint[6] == '3')) {  // check the format of dd & mm
+                        check = 1;
+                        break;
+                    } else {
+                        cout << "Please enter a valid end point!";
+                    }
                 }
-            }
 
-            while(true) {
-                cout << "Enter a required rating of the occupirer: \n";
-                do {
-                    // getline(cin, requiredRating);
-                    cin >> requiredRating;
-                } while(requiredRating == 0);
+                while(true) {
+                    cout << "Enter a required credit for a day: \n";
+                    do {
+                        cin >> requiredCredit;
+                    } while(requiredCredit == 0);
 
-                int check = 0;
+                    int check = 0;
 
-                if((-10 <= requiredRating) && (requiredRating <= 10)) {  // check the required rating
-                    check = 1;
-                    cin.ignore();
-
-                    break;
-                } else {
-                    cout << "Please enter a valid required rating!";
+                    if(0 < requiredCredit) {  // check the required credit is over 0
+                        check = 1;
+                        break;
+                    } else {
+                        cout << "Please enter a valid required credit!";
+                    }
                 }
-            }
-            
-            house.changeListed();
-            cout << "Successfully Listed!\n"
+
+                while(true) {
+                    cout << "Enter a required rating of the occupirer: \n";
+                    do {
+                        cin >> requiredRating;
+                    } while(requiredRating == 0);
+
+                    int check = 0;
+
+                    if((-10 <= requiredRating) && (requiredRating <= 10)) {  // check the required rating
+                        check = 1;
+                        break;
+                    } else {
+                        cout << "Please enter a valid required rating!";
+                    }
+                }
+
+                member.getHouse().setListed(true);
+                member.getHouse().setStartPoint(startPoint);
+                member.getHouse().setEndPoint(endPoint);
+                member.getHouse().setRequiredCredit(requiredCredit);
+                member.getHouse().setRequiredRating(requiredRating);
+                
+                cout << "Successfully Listed!\n"
+                     << "------------------------\n";
+                break;
+
+            } else if(func.toUpper(listChoice) == "N") {
+                cout << "Return to Member Menu! \n";
+
+                break;
+            } else {
+                cout << "You've choosen wrong option! Please select again. \n"
                     << "------------------------\n";
-            break;
+            }
 
-        } else if(house.getListed() == true) {  // if listed
+        } else if(member.getHouse().getListed() == true) {  // if listed
             string unlistChoice;
             cout << "Do you want to unlist your house? \n"
                 << "Enter Y or N: ";
@@ -379,7 +404,12 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
             } while(unlistChoice == "");
 
             if(func.toUpper(unlistChoice) == "Y") {
-                house.changeListed();
+                member.getHouse().setListed(false);
+                member.getHouse().setStartPoint("");
+                member.getHouse().setEndPoint("");
+                member.getHouse().setRequiredCredit(0);
+                member.getHouse().setRequiredRating(0);
+                
                 cout << "Successfully Changed! \n";
                 break;
             } else if(func.toUpper(unlistChoice) == "N") {
@@ -387,7 +417,7 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
                 break;
             } else {
                 cout << "You've choosen wrong option! Please select again. \n"
-                    << "------------------------\n";
+                     << "------------------------\n";
             }
         }
     }
@@ -398,7 +428,19 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
     cout << "------------------------\n"
          << "Search All Available houses \n"
          << "------------------------\n"
-         << "This is a cities can be selected: \n"
+         << "Enter the start point that you want: ";
+    string selectedStartPoint;
+    do {
+        getline(cin, selectedStartPoint);
+    } while(selectedStartPoint == "");
+
+    cout << "Enter the end point that you want: ";
+    string selectedEndPoint;
+    do {
+        getline(cin, selectedEndPoint);
+    } while(selectedEndPoint == "");
+         
+    cout << "This is a cities can be selected: \n"
          << "1. Ha Noi\n"
          << "2. Hue\n"
          << "3. Sai Gon\n"
@@ -411,6 +453,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
         getline(cin, cityChoice);
     } while(cityChoice == "");
 
+
     if(cityChoice == "1") {
         cityName = "Ha Noi";
         int houseIdx = 1;
@@ -418,7 +461,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
              << "Available house list in " << cityName << "\n"
              << "-------------------------------\n";
         for(House house : houseList) {
-            if((house.getLocation() == "Ha Noi") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit())) {
+            if((house.getLocation() == "Ha Noi") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
                 cout << "House No." << houseIdx;
                 cout << "\nLocation: " << house.getLocation() << '\n';
                 cout << "Description: " << house.getDescription() << '\n';
@@ -451,7 +494,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
              << "Available house list in " << cityName << "\n"
              << "-------------------------------\n";
         for(House house : houseList) {
-            if((house.getLocation() == "Hue") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit())) {
+            if((house.getLocation() == "Hue") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
             cout << "House No." << houseIdx;
             cout << "\nLocation: " << house.getLocation() << '\n';
             cout << "Description: " << house.getDescription() << '\n';
@@ -484,7 +527,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
              << "Available house list in " << cityName << "\n"
              << "-------------------------------\n";
         for(House house : houseList) {
-            if((house.getLocation() == "Sai Gon") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit())) {
+            if((house.getLocation() == "Sai Gon") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
             cout << "House No." << houseIdx;
             cout << "\nLocation: " << house.getLocation() << '\n';
             cout << "Description: " << house.getDescription() << '\n';
