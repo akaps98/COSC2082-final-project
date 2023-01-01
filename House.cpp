@@ -117,18 +117,18 @@ void House::setListed(bool listed) {
     this->listed = listed;
 };
 
-void House::setStartPoint(string startPoint) {
+void House::setStartPoint(string &startPoint) {
     this->startPoint = startPoint;
 };
 
-void House::setEndPoint(string endPoint) {
+void House::setEndPoint(string &endPoint) {
     this->endPoint = endPoint;
 };
 
-void House::setRequiredCredit(double requiredCredit) {
+void House::setRequiredCredit(double &requiredCredit) {
     this->requiredCredit = requiredCredit;
 }
 
-void House::setRequiredRating(int requiredRating) {
+void House::setRequiredRating(int &requiredRating) {
     this->requiredRating = requiredRating;
 };

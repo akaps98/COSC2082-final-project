@@ -74,13 +74,13 @@ public:
 
     void setListed(bool listed);
 
-    void setStartPoint(string startPoint);
+    void setStartPoint(string &startPoint);
 
-    void setEndPoint(string endPoint);
+    void setEndPoint(string &endPoint);
 
-    void setRequiredCredit(double requiredCredit);
+    void setRequiredCredit(double &requiredCredit);
 
-    void setRequiredRating(int requiredRating);
+    void setRequiredRating(int &requiredRating);
 };
 
 #endif
