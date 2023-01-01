@@ -40,7 +40,7 @@ public:
 
     void showAllHouseByGuest(vector<House> houseList); // by guest
 
-    void showAllHouseByMember(vector<House> houseList); // by member
+    void showAllHouseByMember(Member member, vector<House> houseList); // by member
 
     void showAllInfo(vector<Member> memberList); // by admin
 

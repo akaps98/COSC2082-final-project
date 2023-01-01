@@ -247,7 +247,7 @@ void System::showAllHouseByGuest(vector<House> houseList) {
 }
 
 
-void System::showAllHouseByMember(vector<House> houseList) {
+void System::showAllHouseByMember(Member member, vector<House> houseList) {
     cout << "------------------------\n"
          << "All houses Information\n"
          << "-------------------\n";
@@ -256,6 +256,9 @@ void System::showAllHouseByMember(vector<House> houseList) {
 
     for(House house : houseList) {
         cout << "House No." << idx;
+        if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
+                cout << "\n#####This is your own house!######";
+        }
         cout << "\nLocation: " << house.getLocation() << '\n';
         cout << "Description: " << house.getDescription() << '\n';
         cout << "Reviews:\n";
@@ -427,18 +430,37 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
 void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
     cout << "------------------------\n"
          << "Search All Available houses \n"
-         << "------------------------\n"
-         << "Enter the start point that you want: ";
+         << "------------------------\n";
+         
     string selectedStartPoint;
-    do {
-        getline(cin, selectedStartPoint);
-    } while(selectedStartPoint == "");
 
-    cout << "Enter the end point that you want: ";
+    while(true) {
+        cout << "Enter the start point that you want(YYYYMMDD): ";
+        do {
+            getline(cin, selectedStartPoint);
+        } while(selectedStartPoint == "");
+
+        if(selectedStartPoint.size() != 8) {
+            cout << "Please input valid format!\n";
+        } else {
+            break;
+        }
+    }
+
     string selectedEndPoint;
-    do {
-        getline(cin, selectedEndPoint);
-    } while(selectedEndPoint == "");
+
+    while(true) {
+        cout << "Enter the end point that you want(YYYYMMDD): ";
+        do {
+            getline(cin, selectedEndPoint);
+        } while(selectedEndPoint == "");
+
+        if(selectedStartPoint.size() != 8) {
+            cout << "Please input valid format!\n";
+        } else {
+            break;
+        }
+    }
          
     cout << "This is a cities can be selected: \n"
          << "1. Ha Noi\n"
@@ -463,6 +485,9 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
         for(House house : houseList) {
             if((house.getLocation() == "Ha Noi") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
                 cout << "House No." << houseIdx;
+                if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
+                    cout << "\n#####This is your own house!######";
+                }
                 cout << "\nLocation: " << house.getLocation() << '\n';
                 cout << "Description: " << house.getDescription() << '\n';
                 cout << "Reviews:\n";
@@ -496,6 +521,9 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
         for(House house : houseList) {
             if((house.getLocation() == "Hue") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
             cout << "House No." << houseIdx;
+            if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
+                cout << "\n#####This is your own house!######";
+            }
             cout << "\nLocation: " << house.getLocation() << '\n';
             cout << "Description: " << house.getDescription() << '\n';
             cout << "Reviews:\n";
@@ -529,6 +557,9 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
         for(House house : houseList) {
             if((house.getLocation() == "Sai Gon") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
             cout << "House No." << houseIdx;
+            if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
+                cout << "\n#####This is your own house!######";
+            }
             cout << "\nLocation: " << house.getLocation() << '\n';
             cout << "Description: " << house.getDescription() << '\n';
             cout << "Reviews:\n";
@@ -787,7 +818,6 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
             saveData(existMember);
         }
     }
-    
     return true;
 }
 
