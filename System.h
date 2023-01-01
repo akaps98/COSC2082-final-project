@@ -40,11 +40,11 @@ public:
 
     void showAllHouseByGuest(vector<House> houseList); // by guest
 
-    void showAllHouseByMember(vector<House> houseList); // by member
+    void showAllHouseByMember(Member member, vector<House> houseList); // by member
 
     void showAllInfo(vector<Member> memberList); // by admin
 
-    void listHouseAvailable(Member member, vector<House> houseList);
+    Member listHouseAvailable(Member member, vector<House> houseList);
 
     void searchAllAvailableHouses(Member member, vector<House> houseList);
 
@@ -60,7 +60,9 @@ public:
 
     vector<House> getHouseList();
 
-    // friend class Main;
+    void pushMemberList(Member member);
+
+    void pushHouseList(House house);
 };
 
 #endif
