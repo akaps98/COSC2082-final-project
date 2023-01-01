@@ -57,6 +57,8 @@ int main() {
                 } else if(guestChoice == "1") {  // Guest chooses 1. Registration
                     Member doRegister;
                     Member newMember = doRegister.registration(sys.getMemberList()); // After registration,
+                    sys.pushMemberList(newMember);
+                    sys.pushHouseList(newMember.getHouse());
                     bool checkNewMember = true;
                     while(1) {
                         cout << "------------------------\n"   // go to member menu autonatically by system
@@ -82,7 +84,7 @@ int main() {
                         } else if(memberChoice == "2") { // Member chooses 2. View all house information
                             sys.showAllHouseByMember(sys.getHouseList());
                         } else if(memberChoice == "3") { // Member chooses 3. List / Unlist a house to be occupied
-                            sys.listHouseAvailable(newMember, sys.getHouseList());
+                            newMember = sys.listHouseAvailable(newMember, sys.getHouseList());
                         } else if(memberChoice == "4") { // Member chooses 4. Search for all available suitable houses for a particular city
                             sys.searchAllAvailableHouses(newMember, sys.getHouseList());
                         }
@@ -124,7 +126,7 @@ int main() {
                 } else if(memberChoice == "2") { // Member chooses 2. View all house information
                     sys.showAllHouseByMember(sys.getHouseList());
                 } else if(memberChoice == "3") { // Member chooses 3. List / Unlist a house to be occupied
-                    sys.listHouseAvailable(loggedInMember, sys.getHouseList());
+                    loggedInMember = sys.listHouseAvailable(loggedInMember, sys.getHouseList());
                 } else if(memberChoice == "4") { // Member chooses 4. Search for all available suitable houses for a particular city
                     sys.searchAllAvailableHouses(loggedInMember, sys.getHouseList());
                 }

@@ -230,7 +230,6 @@ void System::loginByAdmin() {
     }
 }
 
-
 void System::showAllHouseByGuest(vector<House> houseList) {
     cout << "------------------------\n"
          << "All houses Information\n"
@@ -286,8 +285,7 @@ void System::showAllHouseByMember(vector<House> houseList) {
 }
 
 
-void System::listHouseAvailable(Member member, vector<House> houseList) {
-// void System::listHouseAvailable(vector<Member> memberList, vector<House> houseList) {
+Member System::listHouseAvailable(Member member, vector<House> houseList) {
     Function func;
 
     cout << "------------------------\n"
@@ -327,7 +325,7 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
                         check = 1;
                         break;
                     } else {
-                        cout << "Please enter a valid start point!";
+                        cout << "Please enter a valid start point!\n";
                     }
                 }
 
@@ -343,7 +341,7 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
                         check = 1;
                         break;
                     } else {
-                        cout << "Please enter a valid end point!";
+                        cout << "Please enter a valid end point!\n";
                     }
                 }
 
@@ -359,12 +357,12 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
                         check = 1;
                         break;
                     } else {
-                        cout << "Please enter a valid required credit!";
+                        cout << "Please enter a valid required credit!\n";
                     }
                 }
 
                 while(true) {
-                    cout << "Enter a required rating of the occupirer: \n";
+                    cout << "Enter a required rating of the occupier: \n";
                     do {
                         cin >> requiredRating;
                     } while(requiredRating == 0);
@@ -375,32 +373,14 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
                         check = 1;
                         break;
                     } else {
-                        cout << "Please enter a valid required rating!";
+                        cout << "Please enter a valid required rating!\n";
                     }
                 }
 
-                /*
-                // testing
-                cout << member.getHouse().getStartPoint() << "\n"
-                     << member.getHouse().getEndPoint() << "\n"
-                     << member.getHouse().getRequiredCredit() << "\n"
-                     << member.getHouse().getRequiredRating() << "\n"
-                */
-
                 member.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, startPoint, endPoint, requiredCredit, requiredRating));
-
-                /*
-                // testing
-                cout << member.getHouse().getStartPoint() << "\n"
-                     << member.getHouse().getEndPoint() << "\n"
-                     << member.getHouse().getRequiredCredit() << "\n"
-                     << member.getHouse().getRequiredRating() << "\n"
-                */
                 
                 cout << "Successfully Listed!\n"
                      << "------------------------\n";
-
-                saveData(member);
 
                 break;
 
@@ -425,28 +405,10 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
                 endPoint == "";
                 requiredCredit == 0;
                 requiredRating == 0;
-
-                /*
-                // testing
-                cout << member.getHouse().getStartPoint() << "\n"
-                     << member.getHouse().getEndPoint() << "\n"
-                     << member.getHouse().getRequiredCredit() << "\n"
-                     << member.getHouse().getRequiredRating() << "\n"
-                */
                 
                 member.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0));
-
-                /*
-                // testing
-                cout << member.getHouse().getStartPoint() << "\n"
-                     << member.getHouse().getEndPoint() << "\n"
-                     << member.getHouse().getRequiredCredit() << "\n"
-                     << member.getHouse().getRequiredRating() << "\n"
-                */
                 
                 cout << "Successfully Changed! \n";
-
-                saveData(member);
 
                 break;
             } else if(func.toUpper(unlistChoice) == "N") {
@@ -458,6 +420,7 @@ void System::listHouseAvailable(Member member, vector<House> houseList) {
             }
         }
     }
+    return member;
 }
 
 
@@ -704,10 +667,7 @@ void System::showMyInfo(Member member) {
 
 bool System::saveData(Member member) {
     fstream dataFile;
-    // dataFile.open(FILENAME, std::ios::out | std::ios::in);
     dataFile.open(FILENAME, std::ios::app);
-    // dataFile.open(FILENAME, std::ios::out);
-    // dataFile.open(FILENAME, std::ios::trunc);
 
     if(!dataFile.is_open()) {
         cout << "Fail to open the file\n";
@@ -792,9 +752,7 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
         saveData(member);
     } else { // if the user is existed member,
         fstream dataFile;
-        // dataFile.open(FILENAME, std::ios::out);
-        // dataFile.open(FILENAME, std::ios::app);
-        dataFile.open(FILENAME, std::ios::trunc);
+        dataFile.open(FILENAME, std::ios::out);
 
         if(!dataFile.is_open()) {
             cout << "Fail to open the file\n";
@@ -803,31 +761,30 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
 
         for(Member existMember : memberList) {
             if(member.getusername() == existMember.getusername()) {
-                // if(member.getHouse().getListed() == 1) {
-                //     string memLocation = member.getHouse().getLocation();
-                //     string memDescription = member.getHouse().getDescription();
-                //     vector<int> memRating = member.getHouse().getRating();
-                //     vector<string> memComment = member.getHouse().getComment();
-                //     bool memOccupied = member.getHouse().getOccupied();
+                if(member.getHouse().getListed() == 1) {
+                    string memLocation = member.getHouse().getLocation();
+                    string memDescription = member.getHouse().getDescription();
+                    vector<int> memRating = member.getHouse().getRating();
+                    vector<string> memComment = member.getHouse().getComment();
+                    bool memOccupied = member.getHouse().getOccupied();
 
-                //     string memStartPoint = house.getStartPoint();
-                //     string memEndPoint = house.getEndPoint();
-                //     double memRequiredCredit = house.getRequiredCredit();
-                //     int memRequiredRating = house.getRequiredRating(); 
+                    string memStartPoint = member.getHouse().getStartPoint();
+                    string memEndPoint = member.getHouse().getEndPoint();
+                    double memRequiredCredit = member.getHouse().getRequiredCredit();
+                    int memRequiredRating = member.getHouse().getRequiredRating(); 
 
-                //     existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, memStartPoint, memEndPoint, memRequiredCredit, memRequiredRating));
+                    existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, memStartPoint, memEndPoint, memRequiredCredit, memRequiredRating));
+                } else {
+                    string memLocation = member.getHouse().getLocation();
+                    string memDescription = member.getHouse().getDescription();
+                    vector<int> memRating = member.getHouse().getRating();
+                    vector<string> memComment = member.getHouse().getComment();
+                    bool memOccupied = member.getHouse().getOccupied();
 
-                // } else {
-                //     string memLocation = member.getHouse().getLocation();
-                //     string memDescription = member.getHouse().getDescription();
-                //     vector<int> memRating = member.getHouse().getRating();
-                //     vector<string> memComment = member.getHouse().getComment();
-                //     bool memOccupied = member.getHouse().getOccupied();
-
-                //     existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0));
-                // }
-                saveData(existMember);
+                    existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0));
+                }
             }
+            saveData(existMember);
         }
     }
     
@@ -840,4 +797,12 @@ vector<Member> System::getMemberList() {
 
 vector<House> System::getHouseList() {
     return houseList;
+};
+
+void System::pushMemberList(Member member) {
+    memberList.push_back(member);
+};
+
+void System::pushHouseList(House house) {
+    houseList.push_back(house);
 };
