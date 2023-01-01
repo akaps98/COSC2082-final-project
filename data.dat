@@ -1,10 +1,18 @@
 tony,tony1234,01049243445,500,4/8,great/not bad
-Ha Noi,great,5/-2,so so/bad,0,1
+Ha Noi,great,5/-2,so so/bad,0,0,
 henry,tony1234,01049243445,500,7,perfect
-Sai Gon,bad,4/7,not so good/great,1,1
+Sai Gon,bad,4/7,not so good/great,1,0,
 teddy,tony1234,01049243445,500,3,good
-Ha Noi,cool,-1/3,so bad/not good,1,0
+Ha Noi,cool,-1/3,so bad/not good,0,1,20220805,20220807,200,7
 yeh,tony1234,01049243445,500,-2,fff
-Hue,perfect,,,1,1
+Hue,perfect,,,1,0,
 noway,tony1234,01049243445,500,-2,fff
-Sai Gon,not bad,,,0,0
+Sai Gon,not bad,,,0,0,
+seungmin,dltmdals1,01067276756,500,,
+Sai Gon,Very clean and nice,,,0,1,20220301,20220303,400,4
+test,test1234,1234567890,500,,
+Ha Noi,good looking,,,0,0,
+hello,hi,1234,500,,
+Ha Noi,dd,,,0,0,
+seungm1n,dltmdals1,0327706415,450,,
+Sai Gon,Very clean and nice,,,0,1,20220503,20220509,30,4

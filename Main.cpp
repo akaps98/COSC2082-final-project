@@ -40,10 +40,10 @@ int main() {
         if(choice == "1") { // customer chooses 'Guest'
             while(1) {
                 cout << "------------------------\n"
-                    << "This is guest menu: \n";  
+                     << "This is guest menu: \n";  
                 cout << "0. Exit\n"
-                    << "1. Registration\n"
-                    << "2. View information of all houses\n";
+                     << "1. Registration\n"
+                     << "2. View information of all houses\n";
                 cout << "Enter your choice: ";
 
                 string guestChoice;
@@ -57,11 +57,15 @@ int main() {
                 } else if(guestChoice == "1") {  // Guest chooses 1. Registration
                     Member doRegister;
                     Member newMember = doRegister.registration(sys.getMemberList()); // After registration,
+                    bool checkNewMember = true;
                     while(1) {
                         cout << "------------------------\n"   // go to member menu autonatically by system
-                            << "This is member menu: \n";  
+                             << "This is member menu: \n";  
                         cout << "0. Exit\n"
-                            << "1. View the user information\n";
+                             << "1. View the user information\n"
+                             << "2. View all house information\n"
+                             << "3. List / Unlist a house to be occupied\n"
+                             << "4. Search for all available suitable houses for a particular city\n";
                         cout << "Enter your choice: ";
 
                         string memberChoice;
@@ -70,11 +74,17 @@ int main() {
                         } while (memberChoice == "");
 
                         if(memberChoice == "0") {
-                            sys.saveAllDataByNewMember(newMember);
+                            sys.saveAllData(checkNewMember, sys.getMemberList(), newMember);
                             cout << "GOODBYE!\n";
                             break;
                         } else if (memberChoice == "1") {
                             sys.showMyInfo(newMember);
+                        } else if(memberChoice == "2") { // Member chooses 2. View all house information
+                            sys.showAllHouseByMember(sys.getHouseList());
+                        } else if(memberChoice == "3") { // Member chooses 3. List / Unlist a house to be occupied
+                            sys.listHouseAvailable(newMember, sys.getHouseList());
+                        } else if(memberChoice == "4") { // Member chooses 4. Search for all available suitable houses for a particular city
+                            sys.searchAllAvailableHouses(newMember, sys.getHouseList());
                         }
                     }
                     break;
@@ -89,12 +99,15 @@ int main() {
         } else if(choice == "2") { // customer chooses 'Member'
             cout << "------------------------\n";
             Member loggedInMember = sys.loginByMember(sys.getMemberList(), sys.getHouseList());
+            bool checkNewMember = false;
             while(1) {
                 cout << "------------------------\n"   // go to member menu after logged in successfully
                      << "This is member menu: \n";  
                 cout << "0. Exit\n"
                      << "1. View the user information\n"
-                     << "2. View all house information\n";
+                     << "2. View all house information\n"
+                     << "3. List / Unlist a house to be occupied\n"
+                     << "4. Search for all available suitable houses for a particular city\n";
                 cout << "Enter your choice: ";
 
                 string memberChoice;
@@ -103,13 +116,17 @@ int main() {
                 } while (memberChoice == "");
 
                 if(memberChoice == "0") { // Member chooses 0. Exit
-                    //sys.saveAllDataByExistMember(loggedInMember);
+                    sys.saveAllData(checkNewMember, sys.getMemberList(), loggedInMember);
                     cout << "GOODBYE!\n";
                     break;
                 } else if(memberChoice == "1") { // Member chooses 1. View the user information
                     sys.showMyInfo(loggedInMember);
                 } else if(memberChoice == "2") { // Member chooses 2. View all house information
                     sys.showAllHouseByMember(sys.getHouseList());
+                } else if(memberChoice == "3") { // Member chooses 3. List / Unlist a house to be occupied
+                    sys.listHouseAvailable(loggedInMember, sys.getHouseList());
+                } else if(memberChoice == "4") { // Member chooses 4. Search for all available suitable houses for a particular city
+                    sys.searchAllAvailableHouses(loggedInMember, sys.getHouseList());
                 }
             }
             break;
