@@ -483,7 +483,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
              << "Available house list in " << cityName << "\n"
              << "-------------------------------\n";
         for(House house : houseList) {
-            if((house.getLocation() == "Ha Noi") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
+            if((house.getLocation() == "Ha Noi") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(selectedStartPoint) <= stoi(house.getStartPoint())) && (stoi(house.getEndPoint()) <= stoi(selectedEndPoint))) {
                 cout << "House No." << houseIdx;
                 if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
                     cout << "\n#####This is your own house!######";
@@ -519,7 +519,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
              << "Available house list in " << cityName << "\n"
              << "-------------------------------\n";
         for(House house : houseList) {
-            if((house.getLocation() == "Hue") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
+            if((house.getLocation() == "Hue") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(selectedStartPoint) <= stoi(house.getStartPoint())) && (stoi(house.getEndPoint()) <= stoi(selectedEndPoint))) {
             cout << "House No." << houseIdx;
             if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
                 cout << "\n#####This is your own house!######";
@@ -555,7 +555,7 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
              << "Available house list in " << cityName << "\n"
              << "-------------------------------\n";
         for(House house : houseList) {
-            if((house.getLocation() == "Sai Gon") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(house.getStartPoint()) <= stoi(selectedStartPoint)) && (stoi(selectedEndPoint) <= stoi(house.getEndPoint()))) {
+            if((house.getLocation() == "Sai Gon") && (house.getOccupied() == false) && (house.getListed() == true) && (house.getRequiredRating() <= member.getAvg()) && (house.getRequiredCredit() <= member.getcredit()) && (stoi(selectedStartPoint) <= stoi(house.getStartPoint())) && (stoi(house.getEndPoint()) <= stoi(selectedEndPoint))) {
             cout << "House No." << houseIdx;
             if((member.getHouse().getLocation() == house.getLocation()) && (member.getHouse().getDescription() == house.getDescription())) {
                 cout << "\n#####This is your own house!######";
