@@ -26,6 +26,10 @@ House::House(string location = "", string description = "", vector<int> rating =
 }
 
 int House::getAvg() {
+    if(rating.size() == 0) {
+        return 0;
+    }
+    
     int totalRate;
     for(int rate : rating) {
         totalRate += rate;

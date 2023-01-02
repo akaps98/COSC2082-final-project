@@ -290,9 +290,15 @@ void System::showAllHouseByMember(Member member, vector<House> houseList) {
 
 Member System::listHouseAvailable(Member member, vector<House> houseList) {
     Function func;
+    cout << "------------------------\n";
 
-    cout << "------------------------\n"
-         << "List / Unlist a House Avaliable \n"
+    if(member.getHouse().getOccupied() == 1) { // if member's house is on list, he/she cannot list their house on sale.
+        cout << "Your house is currently occupied!\n"
+             << "You cannot list your house on sale until occupation is over!\n";
+        return member;
+    }
+
+    cout << "List / Unlist a House Avaliable \n"
          << "------------------------\n";
 
     string startPoint;
