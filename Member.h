@@ -15,7 +15,11 @@ using std::string;
 using std::cout;
 using std::vector;
 using std::fstream;
-
+//class Request{
+//	public:
+//	string name; // This member phone number is the name
+//	vector<string> requests;
+//};
 class Member {
 private:   
     string username;
@@ -34,6 +38,7 @@ public:
     Member registration(vector<Member> memeberList);
 
     int getAvg();
+  //  Request rq;
 
     // getter
 

@@ -12,6 +12,8 @@ Member::Member (string username = "", string password = "", string phoneNumber =
     this->house = house;
     this->rating = rating;
     this->comment = comment;
+
+  //  rq.name = phoneNumber;
 }
 
 Member Member::registration(vector<Member> memberList) {
@@ -114,7 +116,7 @@ Member Member::registration(vector<Member> memberList) {
         getline(cin, inputDesc);
     } while (inputDesc == "");
 
-    Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false)); 
+    Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false));
 
     cout << "Registration has been done succuessfully!\n\n";
 

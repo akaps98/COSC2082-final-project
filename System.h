@@ -22,7 +22,9 @@ using std::cin;
 using std::vector;
 using std::fstream;
 
+
 class System {
+
 private:
     vector<Member> memberList;
     vector<House> houseList;

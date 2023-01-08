@@ -139,7 +139,7 @@ Member System::loginByMember(vector<Member> memberList, vector<House> houseList)
         do {
             getline(cin, inputUsername);
         } while (inputUsername == "");
-
+        int counter = 0;
         for(Member member : memberList) {
             if(inputUsername == member.getusername()) {
                 house.setLocation(member.getHouse().getLocation()); 
@@ -188,6 +188,7 @@ Member System::loginByMember(vector<Member> memberList, vector<House> houseList)
                 }
                 break;
             }
+            counter++;
         }
         cout << "The username is not exists.\n"
              << "-------------------------\n";
@@ -353,9 +354,10 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
                         cout << "Please enter a valid end point!\n";
                     }
                 }
-
+                //Need to be fixed about the required credit
                 while(true) {
                     cout << "Enter a required credit during the period: \n";
+                    // To prevent cheating of occupier required credit should not be 0
                     do {
                         cin >> requiredCredit;
                     } while(requiredCredit == 0);
@@ -369,15 +371,16 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
                         cout << "Please enter a valid required credit!\n";
                     }
                 }
-
+                // Need to be fixed about the required rating
                 while(true) {
                     cout << "Enter a required rating of the occupier: \n";
-                    do {
+                    //        //Wrong because rating can be 0 if there is no required rating specified
+//                    do {
                         cin >> requiredRating;
-                    } while(requiredRating == 0);
+//                    } while(requiredRating == 0);
 
                     int check = 0;
-
+                    // Required Rating here is the average rating of the occupier which always lie from -10 to 10.
                     if((-10 <= requiredRating) && (requiredRating <= 10)) {  // check the required rating
                         check = 1;
                         break;
@@ -432,7 +435,7 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
     return member;
 }
 
-
+// Date and Time is glitchy maybe we should remove it
 void System::searchAllAvailableHouses(Member member, vector<House> houseList) {
     cout << "------------------------\n"
          << "Search All Available houses \n"
