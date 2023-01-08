@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+
 #include "Member.h"
 #include "House.h"
 #include "Admin.h"
@@ -140,7 +141,9 @@ int main() {
                 	int i = 0;
                 	vector<House> hvt = sys.getHouseList();
                 	vector<House> res = {}; //
-
+                	vector<Member> ownerlist = sys.getMemberList();
+                	vector<Member> owner = {};
+                	int iterations = 0;
                 	 for (House s: sys.getHouseList()){
 
                 		 if(!s.getListed() ||
@@ -149,7 +152,7 @@ int main() {
 					(loggedInMember.getcredit()<s.getRequiredCredit())||
 					(loggedInMember.getAvg()<s.getRequiredRating()))	// Filtered by requirements
                 		 <%
-
+						 	 iterations++;
                 			 continue;
                 		 %>
 
@@ -159,6 +162,8 @@ int main() {
 												   << " Required Rating: "<<s.getRequiredRating()
 												   << " Trial: "<<s.getStartPoint()<<'-'<<s.getEndPoint()<<'\n';
                 		 res.push_back(s);
+                		 owner.push_back(ownerlist[iterations]);
+                		   iterations++;
                 	   	   i++;
 
                 	     }
@@ -176,6 +181,8 @@ int main() {
                 	 }
                 	 // House is chosen
                 	 huser = res[pick-1];
+                	 //corresponding owner is owner[pick-1]
+
 
                 	 // Show inner information of this house
                 	 int sizeInfo = huser.getComment().size();
@@ -193,6 +200,19 @@ int main() {
                 	 for(int i = 0; i<sizeInfo; i++){
                 		 	cout<<"Rate: " << ratehuser[i] << " Comment: " << commenthuser[i] << std::endl;
                 	 }
+                	 ilikecheesetoast:
+                	 char ans;
+                	 cout<<"Do you want to occupy this house ? Y/N: \n";
+                	 cin>>ans;
+
+                	 switch(ans){
+                	 case 'Y' : case 'y' :
+
+                	 break;// do later
+                	 case 'N' : case 'n' : {goto again;}
+                	 default: goto ilikecheesetoast;
+                	 }
+
 
                 }
             }
