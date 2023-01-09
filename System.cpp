@@ -810,6 +810,7 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
                     double memRequiredCredit = member.getHouse().getRequiredCredit();
                     int memRequiredRating = member.getHouse().getRequiredRating(); 
 
+                    existMember.setcredit(member.getcredit());
                     existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, memStartPoint, memEndPoint, memRequiredCredit, memRequiredRating));
                 } else {
                     string memLocation = member.getHouse().getLocation();
@@ -818,6 +819,7 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
                     vector<string> memComment = member.getHouse().getComment();
                     bool memOccupied = member.getHouse().getOccupied();
 
+                    existMember.setcredit(member.getcredit());
                     existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0));
                 }
             }
