@@ -15,6 +15,21 @@ Member::Member (string username = "", string password = "", string phoneNumber =
     this->rq = Request();
     rq.name = phoneNumber;
 }
+void Member::endTrial(vector<Member> &test){
+	if(this->house.getOccupied()){
+		for(Member &m: test){
+			if(this->phoneNumber == m.phoneNumber){
+				m.rq.requests = "";
+			}
+		}
+		this->house.changeOccupied();
+
+
+		return;
+	}
+	printf("There is no one occupying the house yet.\n");
+
+}
 void Member::acceptRequest(vector<Member> &test){ // HomeOwner perspective
 	string res("");
 	for(Member m : test){

@@ -42,6 +42,8 @@ public:
     Request rq;
 
     // getter
+    void endTrial(vector<Member> &test); // Occupier will be notified and will be ask to give house rating, comments (Di will do it); empty the owner request and change the occupy value
+    //RIght here the homeowner will be asked to rate the occupier and comment him (Di will do it).
     void acceptRequest(vector<Member> &test); // Both view and accept
     string getusername();
 

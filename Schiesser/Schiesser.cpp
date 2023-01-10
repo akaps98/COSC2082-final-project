@@ -135,6 +135,11 @@ int main() {
             cout << "------------------------\n";
             Member loggedInMember = sys.loginByMember(sys.getMemberList(), sys.getHouseList());
             bool checkNewMember = false;
+            for(Member m : vtmb){
+            	if(m.rq.requests.find(loggedInMember.getphoneNumber()) and m.getHouse().getOccupied() == true){
+            		printf("Enjoy spending time with the house\n");
+            	}
+            }
             menu:
             while(1) {
                 cout << "------------------------\n"   // go to member menu after logged in successfully
@@ -146,7 +151,8 @@ int main() {
                 		"4. Search for all available suitable houses for a particular city\n"
                 		//Huy
                 		 "5. Request to occupy a house\n"
-                		 "6. View and accept a request\n";
+                		 "6. View and accept a request\n"
+                		 "7. Endtrial of current occupier" "\n";
                 cout << "Enter your choice: ";
 
                 string memberChoice;
@@ -297,6 +303,9 @@ int main() {
                 }
                 else if (memberChoice == "6"){
                 	loggedInMember.acceptRequest(vtmb);
+                }
+                else if(memberChoice == "7"){
+                	loggedInMember.endTrial(vtmb);
                 }
 
             }
