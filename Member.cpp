@@ -4,7 +4,7 @@ using std::string;
 using std::cout;
 using std::cin;
 
-Member::Member (string username = "", string password = "", string phoneNumber = "", double credit = 500.0, House house = House(), vector<int> rating = {}, vector<string> comment = {}) {
+Member::Member (string username = "", string password = "", string phoneNumber = "", double credit = 500.0, House house = House(), vector<int> rating = {}, vector<string> comment = {}, bool occupy = false) {
     this->username = username,
     this->password = password,
     this->phoneNumber = phoneNumber;
@@ -12,6 +12,7 @@ Member::Member (string username = "", string password = "", string phoneNumber =
     this->house = house;
     this->rating = rating;
     this->comment = comment;
+    this->occupy = occupy;
 }
 
 Member Member::registration(vector<Member> memberList) {
@@ -114,7 +115,7 @@ Member Member::registration(vector<Member> memberList) {
         getline(cin, inputDesc);
     } while (inputDesc == "");
 
-    Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false)); 
+    Member newMember(inputUsername, inputPassword, inputphonenumber, 500, House(inputLocation, inputDesc, {}, {}, false, false, 0)); 
 
     cout << "Registration has been done succuessfully!\n\n";
 
@@ -163,6 +164,11 @@ vector<string> Member::getComment() {
     return comment;
 }
 
+bool Member::getOccupy() {
+    return occupy;
+}
+
+
 // setter
  
 void Member::setusername(string username) {
@@ -192,3 +198,7 @@ void Member::setRating(vector<int> rating) {
 void Member::setComment(vector<string> comment) {
     this->comment = comment;
 };
+
+void Member::setOccupy(bool occupy) {
+    this->occupy = occupy;
+}

@@ -16,6 +16,7 @@ private:
     vector<string> comment;
     bool occupied = false; // to check the condition (true : occupied / false : not occupied)
     bool listed = false; // to check it is on sale or not (true : it is on sale / false: not sale)
+    int ratingCount;
     
     // after listing,
     string startPoint;
@@ -26,9 +27,9 @@ private:
 public:
     House() {};
 
-    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed); // not on list
+    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed, int ratingCount); // not on list
 
-    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed, string startPoint, string endPoint, double requiredCredit, int requiredRating); // on list
+    House(string location, string description, vector<int> rating, vector<string> comment, bool occupied, bool listed, int ratingCount, string startPoint, string endPoint, double requiredCredit, int requiredRating); // on list
 
     int getAvg();
 
@@ -51,6 +52,8 @@ public:
     bool getOccupied();
 
     bool getListed();
+    
+    int getRatingCount();
 
     string getStartPoint();
 
@@ -69,6 +72,8 @@ public:
     void setRating(vector<int> rating);
 
     void setComment(vector<string> comment);
+
+    void setRatingCount(int ratingCount);
 
     void setOccupied(bool occupied);
 

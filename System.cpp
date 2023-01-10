@@ -29,14 +29,15 @@ bool System::loadData() {
 
     while(!dataFile.eof()) {
         // member attributes
-        string username, password, phoneNumber, stringcredit, stringMemberRating, stringMemberComment;
+        string username, password, phoneNumber, stringcredit, stringMemberRating, stringMemberComment, stringOccupy;
         double credit;
         vector<int> memberRating;
         vector<string> memberComment;
+        bool occupy;
 
         // house attributes
-        string location, description, stringHouseRating, stringHouseComment, stringOccupied, stringListed, startPoint, endPoint, stringRequiredRating, stringRequiredCredit;
-        int requiredRating;
+        string location, description, stringHouseRating, stringHouseComment, stringOccupied, stringListed, stringRatingCount, startPoint, endPoint, stringRequiredRating, stringRequiredCredit;
+        int requiredRating, ratingCount;
         double requiredCredit;
         vector<int> houseRating;
         vector<string> houseComment;
@@ -63,7 +64,7 @@ bool System::loadData() {
             }
         }
     
-        getline(dataFile, stringMemberComment, '\n');
+        getline(dataFile, stringMemberComment, ',');
 
         if(stringMemberComment == "") {   
         } else {
@@ -73,6 +74,10 @@ bool System::loadData() {
                 memberComment.push_back(comment);
             }
         }
+
+        getline(dataFile, stringOccupy, '\n');
+        occupy = stoi(stringOccupy);
+
         getline(dataFile, location, ',');
         getline(dataFile, description, ',');
         getline(dataFile, stringHouseRating, ',');
@@ -101,11 +106,13 @@ bool System::loadData() {
         occupied = stoi(stringOccupied);
         getline(dataFile, stringListed, ',');
         listed = stoi(stringListed);
+        getline(dataFile, stringRatingCount, ',');
+        ratingCount = stoi(stringRatingCount);
 
         if(listed == 0) {
             string nextLine;
             getline(dataFile, nextLine, '\n');
-            Member member(username, password, phoneNumber, credit, House(location, description, houseRating, houseComment, occupied, listed), memberRating, memberComment);
+            Member member(username, password, phoneNumber, credit, House(location, description, houseRating, houseComment, occupied, listed, ratingCount), memberRating, memberComment, occupy);
             memberList.push_back(member);
             houseList.push_back(member.getHouse());
         } else {
@@ -116,7 +123,7 @@ bool System::loadData() {
             getline(dataFile, stringRequiredCredit, '\n');
             requiredCredit = stod(stringRequiredCredit);
 
-            Member member(username, password, phoneNumber, credit, House(location, description, houseRating, houseComment, occupied, listed, startPoint, endPoint, requiredRating, requiredCredit), memberRating, memberComment);
+            Member member(username, password, phoneNumber, credit, House(location, description, houseRating, houseComment, occupied, listed, ratingCount, startPoint, endPoint, requiredRating, requiredCredit), memberRating, memberComment, occupy);
             memberList.push_back(member);
             houseList.push_back(member.getHouse());
         }
@@ -148,6 +155,7 @@ Member System::loginByMember(vector<Member> memberList, vector<House> houseList)
                 house.setComment(member.getHouse().getComment());
                 house.setOccupied(member.getHouse().getOccupied()); 
                 house.setListed(member.getHouse().getListed());
+                house.setRatingCount(member.getHouse().getRatingCount());
                 if(member.getHouse().getListed() == 1) {
                     string memberStartPoint = member.getHouse().getStartPoint();
                     string memberEndPoint = member.getHouse().getEndPoint();
@@ -167,6 +175,7 @@ Member System::loginByMember(vector<Member> memberList, vector<House> houseList)
                 user.setHouse(house); 
                 user.setRating(member.getRating()); 
                 user.setComment(member.getComment()); 
+                user.setOccupy(member.getOccupy());
 
                 string inputPassword;
 
@@ -312,6 +321,7 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
         vector<int> memRating = member.getHouse().getRating();
         vector<string> memComment = member.getHouse().getComment();
         bool memOccupied = member.getHouse().getOccupied();
+        int ratingCount = member.getHouse().getRatingCount();
 
         if(member.getHouse().getListed() == false) {  // if not listed
             string listChoice;
@@ -386,7 +396,7 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
                     }
                 }
 
-                member.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, startPoint, endPoint, requiredCredit, requiredRating));
+                member.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, ratingCount, startPoint, endPoint, requiredCredit, requiredRating));
                 
                 cout << "Successfully Listed!\n"
                      << "------------------------\n";
@@ -415,7 +425,7 @@ Member System::listHouseAvailable(Member member, vector<House> houseList) {
                 requiredCredit == 0;
                 requiredRating == 0;
                 
-                member.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0));
+                member.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0, ratingCount));
                 
                 cout << "Successfully Changed! \n";
 
@@ -733,7 +743,7 @@ bool System::saveData(Member member) {
         int idx = 1;
         for(string comment : member.getComment()) {
             if(idx == member.getComment().size()) {
-                dataFile << comment << "\n";
+                dataFile << comment << "," << member.getOccupy() << "\n";
                 break;
             }
             dataFile << comment << "/";
@@ -771,7 +781,7 @@ bool System::saveData(Member member) {
         }
     }
 
-    dataFile << member.getHouse().getOccupied() << "," << member.getHouse().getListed() << ",";
+    dataFile << member.getHouse().getOccupied() << "," << member.getHouse().getListed() << "," << member.getHouse().getRatingCount() << ",";
 
     if(member.getHouse().getListed() == false) {
         dataFile << "\n";
@@ -804,6 +814,7 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
                     vector<int> memRating = member.getHouse().getRating();
                     vector<string> memComment = member.getHouse().getComment();
                     bool memOccupied = member.getHouse().getOccupied();
+                    int memRatingCount = member.getHouse().getRatingCount();
 
                     string memStartPoint = member.getHouse().getStartPoint();
                     string memEndPoint = member.getHouse().getEndPoint();
@@ -811,16 +822,17 @@ bool System::saveAllData(bool checkNewMember, vector<Member> memberList, Member 
                     int memRequiredRating = member.getHouse().getRequiredRating(); 
 
                     existMember.setcredit(member.getcredit());
-                    existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, memStartPoint, memEndPoint, memRequiredCredit, memRequiredRating));
+                    existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 1, memRatingCount, memStartPoint, memEndPoint, memRequiredCredit, memRequiredRating));
                 } else {
                     string memLocation = member.getHouse().getLocation();
                     string memDescription = member.getHouse().getDescription();
                     vector<int> memRating = member.getHouse().getRating();
                     vector<string> memComment = member.getHouse().getComment();
                     bool memOccupied = member.getHouse().getOccupied();
+                    int memRatingCount = member.getHouse().getRatingCount();
 
                     existMember.setcredit(member.getcredit());
-                    existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0));
+                    existMember.setHouse(House(memLocation, memDescription, memRating, memComment, memOccupied, 0, memRatingCount));
                 }
             }
             saveData(existMember);

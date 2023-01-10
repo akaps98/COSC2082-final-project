@@ -25,11 +25,12 @@ private:
     House house;
     vector<string> comment;
     vector<int> rating;
+    bool occupy;
 
 public:
     Member() {};
 
-    Member(string username, string password, string phoneNumber, double credit, House house, vector<int> rating, vector<string> comment);
+    Member(string username, string password, string phoneNumber, double credit, House house, vector<int> rating, vector<string> comment, bool occupy);
 
     Member registration(vector<Member> memeberList);
 
@@ -51,6 +52,8 @@ public:
 
     vector<string> getComment();
 
+    bool getOccupy();
+
     // setter
 
     void setusername(string username);
@@ -66,6 +69,8 @@ public:
     void setRating(vector<int> rating);
 
     void setComment(vector<string> comment);
+
+    void setOccupy(bool occupy);
 };
 
 #endif
