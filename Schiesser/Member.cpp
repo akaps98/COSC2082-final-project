@@ -42,7 +42,7 @@ void Member::acceptRequest(vector<Member> &test){ // HomeOwner perspective
 	printf("Write in a phone number in that list to accept that request or write any to quit this:\n");
 	string t("");
 	cin>>t;
-	if(res.find(t)){
+	if(res.find(t) != -1){
 		for(Member &m : test){
 				if(this->phoneNumber == m.phoneNumber){
 					m.rq.requests = t;

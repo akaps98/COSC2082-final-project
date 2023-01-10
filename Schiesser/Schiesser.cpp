@@ -11,17 +11,7 @@
 using std::string;
 using std::cout;
 using std::cin;
-//We need a vector of vector of string (phone number of requestes)
-void eraseSubStr(std::string & mainStr, const std::string & toErase)
-{
-    // Search for the substring in string
-    size_t pos = mainStr.find(toErase);
-    if (pos != std::string::npos)
-    {
-        // If found then erase it from string
-        mainStr.erase(pos, toErase.length());
-    }
-} //https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
+
 int main() {
     System sys;
     vector<Member> vtmb; // I need it because otherwise we cannot modify the sys.getMemberList()
@@ -136,8 +126,8 @@ int main() {
             Member loggedInMember = sys.loginByMember(sys.getMemberList(), sys.getHouseList());
             bool checkNewMember = false;
             for(Member m : vtmb){
-            	if(m.rq.requests.find(loggedInMember.getphoneNumber()) and m.getHouse().getOccupied() == true){
-            		printf("Enjoy spending time with the house\n");
+            	if(m.rq.requests.find(loggedInMember.getphoneNumber()) != -1 and m.getHouse().getOccupied() == true){
+            		printf("###Enjoy spending time with the house###\n");
             	}
             }
             menu:
@@ -178,8 +168,7 @@ int main() {
 
 
 
-                    	myfile.close(); // Have to do writing function again
-
+                    	myfile.close();
 					%>
                     cout << "GOODBYE!\n";
                     break;
@@ -203,7 +192,7 @@ int main() {
                 	int iterations = 0;
                 	// We need to see if this member is recorded on phonePacks
                 	for(string s : phonePacks){
-                		if(s.find(loggedInMember.getphoneNumber())){
+                		if(s.find(loggedInMember.getphoneNumber()) != -1){
                 			cout<< "You have requested a house or have been occupying a house already and you cannot cancel that request!\n";
                 			goto menu;
                 		}
