@@ -1,33 +1,63 @@
 #include <iostream>
 #include <string>
-
+#include <fstream>
 
 #include "Member.h"
 #include "House.h"
 #include "Admin.h"
 #include "System.h"
+#include "Request.h"
 
 using std::string;
 using std::cout;
 using std::cin;
-
+//We need a vector of vector of string (phone number of requestes)
+void eraseSubStr(std::string & mainStr, const std::string & toErase)
+{
+    // Search for the substring in string
+    size_t pos = mainStr.find(toErase);
+    if (pos != std::string::npos)
+    {
+        // If found then erase it from string
+        mainStr.erase(pos, toErase.length());
+    }
+} //https://thispointer.com/how-to-remove-substrings-from-a-string-in-c/
 int main() {
     System sys;
+    vector<Member> vtmb; // I need it because otherwise we cannot modify the sys.getMemberList()
+    vector<string> phonePacks; // each must be sent to each member in vtmb
+     <%	// Mission : initialize phonePacks
+		string line;
+     	 std::ifstream myfile("requests.txt");
+     	 if(myfile.is_open()){
+     		 while(getline(myfile,line)){ // Important: getline won't get empty line
+     			 phonePacks.push_back(line);
+     		 }
+     		 myfile.close();
+     	 }
 
+
+	 %>
     if(!sys.loadData()) {
         cout << "Fail to load data from database.";
         return -1;
     }
+    for(Member m : sys.getMemberList()){
+        	vtmb.push_back(m);
+        }
+    for(int i = 0; i < (int)vtmb.size(); i++){
+    	vtmb[i].rq.requests = phonePacks[i];
+    }
 
-    while(1) {
-        cout << "EEET2482/COSC2082 ASSIGNMENT\n" <<
-                "VACATION HOUSE EXCHANGE APPLICATION\n\n" <<
-                "Instructors: Mr. Linh Tran & Phong Ngo\n" <<
-                "Group: Group Name\n" <<
-                "s3916884, Kang Junsik\n" <<
-                "s3864235, Lee Seungmin\n" <<
-                "s3926977, Di Doan\n" <<
-                "s3836278, Mai Le Anh Huy\n" <<
+    while(1) { // String is concatnated using translation unit
+        cout << "EEET2482/COSC2082 ASSIGNMENT\n"
+                "VACATION HOUSE EXCHANGE APPLICATION\n\n"
+                "Instructors: Mr. Linh Tran & Phong Ngo\n"
+                "Group: Group Name\n"
+                "s3916884, Kang Junsik\n"
+                "s3864235, Lee Seungmin\n"
+                "s3926977, Di Doan\n"
+                "s3836278, Mai Le Anh Huy\n"
                 "------------------------\n";
         cout << "Use the app as: \n";
         cout << "1. Guest    2. Member   3. Admin\n";
@@ -101,10 +131,11 @@ int main() {
             }
             break;
         } else if(choice == "2") { // customer chooses 'Member'
-        	menu:
+
             cout << "------------------------\n";
             Member loggedInMember = sys.loginByMember(sys.getMemberList(), sys.getHouseList());
             bool checkNewMember = false;
+            menu:
             while(1) {
                 cout << "------------------------\n"   // go to member menu after logged in successfully
                      << "This is member menu: \n";
@@ -123,7 +154,26 @@ int main() {
                 } while (memberChoice == "");
 
                 if(memberChoice == "0") { // Member chooses 0. Exit
+
                     sys.saveAllData(checkNewMember, sys.getMemberList(), loggedInMember);
+                    //Will save data of requestes (My convention <% %> is important)
+                    <%
+
+						std::ofstream myfile;
+                    	myfile.open("requests.txt");
+                    	string res = "";
+
+
+                    		for(Member m : vtmb){
+                    			myfile << m.rq.requests;
+                    			myfile << "\n";
+                    		}
+
+
+
+                    	myfile.close(); // Have to do writing function again
+
+					%>
                     cout << "GOODBYE!\n";
                     break;
                 } else if(memberChoice == "1") { // Member chooses 1. View the user information
@@ -144,6 +194,13 @@ int main() {
                 	vector<Member> ownerlist = sys.getMemberList();
                 	vector<Member> owner = {};
                 	int iterations = 0;
+                	// We need to see if this member is recorded on phonePacks
+                	for(string s : phonePacks){
+                		if(s.find(loggedInMember.getphoneNumber())){
+                			cout<< "You have requested a house or have been occupying a house already and you cannot cancel that request!";
+                			goto menu;
+                		}
+                	}
                 	 for (House s: sys.getHouseList()){
 
                 		 if(!s.getListed() ||
@@ -201,15 +258,37 @@ int main() {
                 		 	cout<<"Rate: " << ratehuser[i] << " Comment: " << commenthuser[i] << std::endl;
                 	 }
                 	 ilikecheesetoast:
-                	 char ans;
-                	 cout<<"Do you want to occupy this house ? Y/N: \n";
+                	 char ans = ' ';
+                	 cout<<"Do you want to occupy this house ? Y/N/M (menu): \n";
                 	 cin>>ans;
 
                 	 switch(ans){
                 	 case 'Y' : case 'y' :
 
-                	 break;// do later
+                	//	 cout<<owner[pick-1].rq.requests.at(0);
+                		 owner[pick-1].setcredit(
+                				 owner[pick-1].getcredit()+huser.getRequiredCredit());
+                		// cout<<owner[pick-1].getusername();
+                		 sys.phoneOwner = owner[pick-1].getphoneNumber();
+
+                		 for(int i = 0; i < (int)sys.getMemberList().size(); i++){
+                			 if(sys.getMemberList().at(i).getphoneNumber() == owner[pick-1].getphoneNumber()){
+                				 vtmb.at(i).rq.requests += loggedInMember.getphoneNumber() + " ";
+                				 //loggedInMember.getphoneNumber()
+
+                				// cout<<vtmb.at(i).rq.requests.at(0);
+
+                			 }
+                		 }
+
+                		 sys.requiredCreOwner = owner[pick-1].getHouse().getRequiredCredit();
+                		 loggedInMember.setcredit(
+                				 loggedInMember.getcredit()-huser.getRequiredCredit());
+
+
+                	 break;
                 	 case 'N' : case 'n' : {goto again;}
+                	 case 'M' : case 'm' : break;
                 	 default: goto ilikecheesetoast;
                 	 }
 
