@@ -42,7 +42,7 @@ public:
     Request rq;
 
     // getter
-
+    void acceptRequest(vector<Member> &test); // Both view and accept
     string getusername();
 
     string getphoneNumber();

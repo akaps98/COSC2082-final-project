@@ -131,20 +131,22 @@ int main() {
             }
             break;
         } else if(choice == "2") { // customer chooses 'Member'
-        	menu:
+
             cout << "------------------------\n";
             Member loggedInMember = sys.loginByMember(sys.getMemberList(), sys.getHouseList());
             bool checkNewMember = false;
+            menu:
             while(1) {
                 cout << "------------------------\n"   // go to member menu after logged in successfully
                      << "This is member menu: \n";
                 cout << "0. Exit\n"
-                     << "1. View the user information\n"
-                     << "2. View all house information\n"
-                     << "3. List / Unlist a house to be occupied\n"
-                     << "4. Search for all available suitable houses for a particular city\n"
+                		"1. View the user information\n"
+                		"2. View all house information\n"
+                		"3. List / Unlist a house to be occupied\n"
+                		"4. Search for all available suitable houses for a particular city\n"
                 		//Huy
-                		<< "5. Request to occupy a house\n";
+                		 "5. Request to occupy a house\n"
+                		 "6. View and accept a request\n";
                 cout << "Enter your choice: ";
 
                 string memberChoice;
@@ -193,6 +195,13 @@ int main() {
                 	vector<Member> ownerlist = sys.getMemberList();
                 	vector<Member> owner = {};
                 	int iterations = 0;
+                	// We need to see if this member is recorded on phonePacks
+                	for(string s : phonePacks){
+                		if(s.find(loggedInMember.getphoneNumber())){
+                			cout<< "You have requested a house or have been occupying a house already and you cannot cancel that request!\n";
+                			goto menu;
+                		}
+                	}
                 	 for (House s: sys.getHouseList()){
 
                 		 if(!s.getListed() ||
@@ -286,6 +295,10 @@ int main() {
 
 
                 }
+                else if (memberChoice == "6"){
+                	loggedInMember.acceptRequest(vtmb);
+                }
+
             }
             break;
         } else if(choice == "3") { // customer chooses 'Admin'

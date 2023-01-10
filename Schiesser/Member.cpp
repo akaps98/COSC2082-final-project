@@ -15,7 +15,27 @@ Member::Member (string username = "", string password = "", string phoneNumber =
     this->rq = Request();
     rq.name = phoneNumber;
 }
+void Member::acceptRequest(vector<Member> &test){ // HomeOwner perspective
+	string res("");
+	for(Member m : test){
+		if(this->phoneNumber == m.phoneNumber){
+			res = m.rq.requests;
+		}
+	}
+	cout<<"Requests to your house are " + res +":\n";
 
+	printf("Write in a phone number in that list to accept that request or write any to quit this:\n");
+	string t("");
+	cin>>t;
+	if(res.find(t)){
+		for(Member &m : test){
+				if(this->phoneNumber == m.phoneNumber){
+					m.rq.requests = t;
+				}
+			}
+		this->house.changeOccupied();
+	}
+}
 Member Member::registration(vector<Member> memberList) {
     Function func;
 
