@@ -189,12 +189,14 @@ int main()
                                     continue;
                                 %>
 
-                                cout << i + 1 << ": " << s.getLocation() << ": "
-                                     << s.getDescription() << std::endl
-                                     << "Requirements: "
-                                     << "Required Credits: " << s.getRequiredCredit()
-                                     << " Required Rating: " << s.getRequiredRating()
-                                     << " Trial: " << s.getStartPoint() << '-' << s.getEndPoint() << '\n';
+                                cout << "No." << i + 1 << "\n"
+                                     << "Location: " << s.getLocation() << "\n"
+                                     << "Description: " << s.getDescription() << std::endl
+                                     << "Required Credits: " << s.getRequiredCredit() << "\n"
+                                     << "Required Rating: " << s.getRequiredRating() << "\n"
+                                     << "Period: " << s.getStartPoint() << " - " << s.getEndPoint() << '\n'
+                                     << "----------------------------------------------------------\n";
+
                                 res.push_back(s);
                                 owner.push_back(ownerlist[iterations]);
                                 iterations++;
@@ -417,12 +419,14 @@ int main()
                             continue;
                         %>
 
-                        cout << i + 1 << ": " << s.getLocation() << ": "
-                             << s.getDescription() << std::endl
-                             << "Requirements: "
-                             << "Required Credits: " << s.getRequiredCredit()
-                             << " Required Rating: " << s.getRequiredRating()
-                             << " Trial: " << s.getStartPoint() << '-' << s.getEndPoint() << '\n';
+                    cout  << "No." << i + 1 << "\n"
+                             << "Location: " << s.getLocation() << "\n"
+                             << "Description: " << s.getDescription() << std::endl
+                             << "Required Credits: " << s.getRequiredCredit() << "\n"
+                             << "Required Rating: " << s.getRequiredRating() << "\n"
+                             << "Period: " << s.getStartPoint() << " - " << s.getEndPoint() << '\n'
+                             << "----------------------------------------------------------\n";
+
                         res.push_back(s);
                         owner.push_back(ownerlist[iterations]);
                         iterations++;
