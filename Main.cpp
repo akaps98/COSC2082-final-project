@@ -18,7 +18,7 @@ int main()
 
     vector<Member> vtmb;       // I need it because otherwise we cannot modify the sys.getMemberList()
     vector<string> phonePacks; // each must be sent to each member in vtmb
-    <%                         // Mission : initialize phonePacks
+    {                         // Mission : initialize phonePacks
         string line;
         std::ifstream myfile("requests.dat");
         if (myfile.is_open())
@@ -29,7 +29,7 @@ int main()
             }
             myfile.close();
         }
-    %>
+    }
     if (!sys.loadData())
     {
         cout << "Fail to load data from database.";
@@ -126,7 +126,7 @@ int main()
                         if (memberChoice == "0")
                         {
                             sys.saveAllData(checkNewMember, vtmb, newMember);
-                            <%
+                            {
                                 std::ofstream myfile;
                                 myfile.open("requests.dat");
                                 string res = "";
@@ -138,7 +138,7 @@ int main()
                                 }
 
                                 myfile.close();
-                            %>
+                            }
                             cout << "GOODBYE!\n";
                             break;
                         }
@@ -184,10 +184,10 @@ int main()
                                     (s.getOccupied()) ||
                                     (newMember.getcredit() < s.getRequiredCredit()) ||
                                     (newMember.getAvg() < s.getRequiredRating())) // Filtered by requirements
-                                <%
+                                {
                                     iterations++;
                                     continue;
-                                %>
+                                }
 
                                 cout << "No." << i + 1 << "\n"
                                      << "Location: " << s.getLocation() << "\n"
@@ -224,7 +224,7 @@ int main()
                             // Show inner information of this house
                             int sizeInfo = huser.getComment().size();
                             int ratingInfo = huser.getRating().size();
-                            <%
+                            {
                                 if (sizeInfo == 0)
                                 {
                                     cout << "There is no comment just yet:\n";
@@ -233,7 +233,7 @@ int main()
                                 {
                                     cout << "There is no rating just yet:\n";
                                 }
-                            %>
+                            }
                             vector<int> ratehuser = huser.getRating();
                             vector<string> commenthuser = huser.getComment();
                             for (int i = 0; i < sizeInfo; i++)
@@ -311,7 +311,7 @@ int main()
             bool checkNewMember = false;
             for (Member m : vtmb)
             {
-                if (m.rq.requests.find(loggedInMember.getphoneNumber()) != -1 and m.getHouse().getOccupied() == true)
+                if (m.rq.requests.find(loggedInMember.getphoneNumber()) != -1 && m.getHouse().getOccupied() == true)
                 {
                     loggedInMember.setOccupy(true);
                     printf("###Enjoy spending time with the house###\n");
@@ -354,7 +354,7 @@ int main()
 
                     sys.saveAllData(checkNewMember, vtmb, loggedInMember);
                     // Will save data of requestes (My convention <% %> is important)
-                    <%
+                    {
 
                         std::ofstream myfile;
                         myfile.open("requests.dat");
@@ -367,7 +367,7 @@ int main()
                         }
 
                         myfile.close();
-                    %>
+                    }
                     cout << "GOODBYE!\n";
                     break;
                 }
@@ -414,10 +414,10 @@ int main()
                             (s.getOccupied()) ||
                             (loggedInMember.getcredit() < s.getRequiredCredit()) ||
                             (loggedInMember.getAvg() < s.getRequiredRating())) // Filtered by requirements
-                        <%
+                        {
                             iterations++;
                             continue;
-                        %>
+                        }
 
                     cout  << "No." << i + 1 << "\n"
                              << "Location: " << s.getLocation() << "\n"
@@ -454,7 +454,7 @@ int main()
                     // Show inner information of this house
                     int sizeInfo = huser.getComment().size();
                     int ratingInfo = huser.getRating().size();
-                    <%
+                    {
                         if (sizeInfo == 0)
                         {
                             cout << "There is no comment just yet:\n";
@@ -463,7 +463,7 @@ int main()
                         {
                             cout << "There is no rating just yet:\n";
                         }
-                    %>
+                    }
                     vector<int> ratehuser = huser.getRating();
                     vector<string> commenthuser = huser.getComment();
                     for (int i = 0; i < sizeInfo; i++)
@@ -525,7 +525,7 @@ int main()
                 {
                     for (Member m : vtmb)
                     {
-                        if (m.rq.requests.find(loggedInMember.getphoneNumber()) != -1 and m.getHouse().getOccupied())
+                        if (m.rq.requests.find(loggedInMember.getphoneNumber()) != -1 && m.getHouse().getOccupied())
                         {
                             sys.phoneOwner = m.getphoneNumber();
                         }
