@@ -27,11 +27,23 @@ void Member::checkOut(Member &owner)
         int rate;
         while (true)
         {
-            cout << "Please rate the house (from -10 to 10): ";
-            do
+            while (true)
             {
-                getline(cin, stringRate);
-            } while (stringRate == "");
+                do
+                {
+                    cout << "Please rate the occupier (from -10 to 10): ";
+                    getline(cin, stringRate);
+                } while (stringRate == "");
+
+                if (stoi(stringRate) > 10 || stoi(stringRate) < -10)
+                {
+                    cout << "Please enter a rating from -10 to 10!\n";
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             ratingList.push_back(stoi(stringRate));
             owner.setHouseRating(ratingList);
@@ -61,11 +73,20 @@ void Member::ratingOccupier(Member &occupier) {
         int rate;
         while (true)
         {
-            cout << "Please rate the occupier (from -10 to 10): ";
-            do
+            while (true) {
+                do
             {
+                cout << "Please rate the occupier (from -10 to 10): ";
                 getline(cin, stringRate);
             } while (stringRate == "");
+
+            if (stoi(stringRate) > 10 || stoi(stringRate) <-10) {
+                cout << "Please enter a rating from -10 to 10!\n";
+            } else {
+                break;
+            }
+            }
+            
 
             ratingList.push_back(stoi(stringRate));
             occupier.setRating(ratingList);
