@@ -27,7 +27,6 @@ private:
     vector<string> comment;
     vector<int> rating;
     bool occupy;
-    Member *houseOwner = nullptr;
     string ownerName;
 
 public:
@@ -65,7 +64,6 @@ public:
 
     bool getOccupy();
 
-    Member getHouseOwner();
 
     string getOwnerName();
 
@@ -86,8 +84,6 @@ public:
     void setComment(vector<string> comment);
 
     void setOccupy(bool occupy);
-
-    void setHouseOwner(Member &houseOwner);
 
     void setOwnerName(string ownerName);
     

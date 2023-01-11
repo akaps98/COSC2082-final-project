@@ -541,9 +541,11 @@ void System::searchAllAvailableHouses(Member member, vector<House> houseList)
 {
     cout << "------------------------\n"
          << "Search All Available houses \n"
-         << "------------------------\n";
+         << "------------------------\n"
+         << "Your credit: " << member.getcredit() << "\n"
+         << "Your average rating: " << member.getAvg() << "\n";
 
-    string selectedStartPoint;
+        string selectedStartPoint;
 
     while (true)
     {

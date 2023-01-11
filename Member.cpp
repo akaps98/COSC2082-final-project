@@ -315,10 +315,6 @@ bool Member::getOccupy()
     return occupy;
 }
 
-Member Member::getHouseOwner()
-{
-    return *houseOwner;
-}
 
 string Member::getOwnerName()
 {
@@ -360,10 +356,6 @@ void Member::setOccupy(bool occupy)
     this->occupy = occupy;
 }
 
-void Member::setHouseOwner(Member &houseOwner)
-{
-    this->houseOwner = &houseOwner;
-}
 
 void Member::setOwnerName(string ownerName)
 {

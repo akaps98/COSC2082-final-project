@@ -97,6 +97,7 @@ int main()
                     vtmb.push_back(newMember);
                     sys.pushHouseList(newMember.getHouse());
                     bool checkNewMember = true;
+                    menu1:
                     while (1)
                     {
                         cout << "------------------------\n" // go to member menu autonatically by system
@@ -156,6 +157,142 @@ int main()
                         else if (memberChoice == "4")
                         { // Member chooses 4. Search for all available suitable houses for a particular city
                             sys.searchAllAvailableHouses(newMember, sys.getHouseList());
+                        }
+                        else if (memberChoice == "5")
+                        {
+                            // Show all houses first then let the user choose
+                            int i = 0;
+                            vector<House> hvt = sys.getHouseList();
+                            vector<House> res = {}; //
+                            vector<Member> ownerlist = sys.getMemberList();
+                            vector<Member> owner = {};
+                            int iterations = 0;
+                            // We need to see if this member is recorded on phonePacks
+                            for (string s : phonePacks)
+                            {
+                                if (s.find(newMember.getphoneNumber()) != -1)
+                                {
+                                    cout << "You have requested a house or have been occupying a house already and you cannot cancel that request!\n";
+                                    goto menu1;
+                                }
+                            }
+                            for (House s : sys.getHouseList())
+                            {
+
+                                if (!s.getListed() ||
+                                    newMember.getHouse().getDescription() == s.getDescription() ||
+                                    (s.getOccupied()) ||
+                                    (newMember.getcredit() < s.getRequiredCredit()) ||
+                                    (newMember.getAvg() < s.getRequiredRating())) // Filtered by requirements
+                                <%
+                                    iterations++;
+                                    continue;
+                                %>
+
+                                cout << i + 1 << ": " << s.getLocation() << ": "
+                                     << s.getDescription() << std::endl
+                                     << "Requirements: "
+                                     << "Required Credits: " << s.getRequiredCredit()
+                                     << " Required Rating: " << s.getRequiredRating()
+                                     << " Trial: " << s.getStartPoint() << '-' << s.getEndPoint() << '\n';
+                                res.push_back(s);
+                                owner.push_back(ownerlist[iterations]);
+                                iterations++;
+                                i++;
+                            }
+                            if (i == 0)
+                            {
+                                cout << "There is no house suitable for you based on your credit and rating! \n";
+                                goto menu1; // Bad practice but fine anyway
+                            }
+                            int pick = 0;
+                            House huser;
+                        again1:
+                            cout << "Choose a house to request base on the number: \n";
+                            cin >> pick;
+                            if (!(pick >= 1 && pick <= i))
+                            {
+                                goto again1; // Bad practice but we will use it
+                            }
+                            // House is chosen
+                            huser = res[pick - 1];
+
+                            // corresponding owner is owner[pick-1]
+
+                            // Show inner information of this house
+                            int sizeInfo = huser.getComment().size();
+                            int ratingInfo = huser.getRating().size();
+                            <%
+                                if (sizeInfo == 0)
+                                {
+                                    cout << "There is no comment just yet:\n";
+                                }
+                                if (ratingInfo == 0)
+                                {
+                                    cout << "There is no rating just yet:\n";
+                                }
+                            %>
+                            vector<int> ratehuser = huser.getRating();
+                            vector<string> commenthuser = huser.getComment();
+                            for (int i = 0; i < sizeInfo; i++)
+                            {
+                                cout << "Rate: " << ratehuser[i] << " Comment: " << commenthuser[i] << std::endl;
+                            }
+                        ilikecheesetoast1:
+                            char ans = ' ';
+                            cout << "Do you want to occupy this house ? Y/N/M (menu): \n";
+                            cin >> ans;
+
+                            switch (ans)
+                            {
+                            case 'Y':
+                            case 'y':
+
+                                // cout<<owner[pick-1].getusername();
+                                // sys.phoneOwner = owner[pick-1].getphoneNumber();
+
+                                for (int i = 0; i < (int)sys.getMemberList().size(); i++)
+                                {
+                                    if (sys.getMemberList().at(i).getphoneNumber() == owner[pick - 1].getphoneNumber())
+                                    {
+                                        vtmb.at(i).rq.requests += newMember.getphoneNumber() + " ";
+                                        // loggedInMember.getphoneNumber()
+
+                                        // cout<<vtmb.at(i).rq.requests.at(0);
+                                    }
+                                }
+                                // Wrong Because this will add and subtract credit BEFORE user is accepted, the fix is below
+                                //  sys.requiredCreOwner = owner[pick-1].getHouse().getRequiredCredit();
+                                //  loggedInMember.setcredit(
+                                // 		 loggedInMember.getcredit()-huser.getRequiredCredit());
+                                cout << "Successfully send a request to the house owner!\n";
+
+                                break;
+                            case 'N':
+                            case 'n':
+                            {
+                                goto again1;
+                            }
+                            case 'M':
+                            case 'm':
+                                break;
+                            default:
+                                goto ilikecheesetoast1;
+                            }
+                        }
+                        else if (memberChoice == "6")
+                        { // Member chooses 6. View and accept a request
+                            cout << "You have no request yet" << "\n";
+                        }
+                        else if (memberChoice == "7")
+                        { // Member chooses 7. Check out from occupied house
+                            cout << "You are not staying in any house yet"
+                                 << "\n";
+                        }
+                        else if (memberChoice == "8")
+                        { // Member chooses 8. Rate past occupiers
+                            cout << "You do not have any past occupier"
+                                 << "\n";
                         }
                     }
                     break;
