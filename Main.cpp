@@ -107,7 +107,7 @@ int main()
                              << "2. View all house information\n"
                              << "3. List / Unlist a house to be occupied\n"
                              << "4. Search for all available suitable houses for a particular city\n"
-                                "5. Request to occupy a house\n"
+                                "5. aoccupy a house\n"
                                 "6. View and accept a request\n"
                                 "7. Check out the house you are occupying"
                                 "\n"
@@ -557,7 +557,7 @@ int main()
                 {
                     if (loggedInMember.getHouse().getOccupierName() == "none" && loggedInMember.getHouse().getOccupied() == false)
                     {
-                        cout << "You have already rate the occupier\n";
+                        cout << "There is no occupier that need to be rated\n";
                         goto menu;
                     }
 

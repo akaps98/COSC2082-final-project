@@ -103,10 +103,10 @@ void Member::acceptRequest(vector<Member> &test){ // HomeOwner perspective
     for(Member m : test){
 		if(res.find(m.getphoneNumber() )!= -1){
 			info = info 
-            + "Average Credit is: " + std::to_string(m.getcredit()) 
-            + "\n Average rating is: " + std::to_string(m.getAvg())
-            + "\n Name is: " + m.getusername()
-            + "\n Phone Number is: " + m.getphoneNumber() + "\n --------------------- \n";
+            + "Total Credit: " + std::to_string(m.getcredit()) 
+            + "\nAverage rating: " + std::to_string(m.getAvg())
+            + "\nName: " + m.getusername()
+            + "\nPhone Number: " + m.getphoneNumber() + "\n --------------------- \n";
 		}
 
 	}
