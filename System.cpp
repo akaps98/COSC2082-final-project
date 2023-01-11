@@ -798,11 +798,11 @@ void System::showAllInfo(vector<Member> memberList)
         {
             if (member.getHouse().getListed() == true)
             {
-                cout << "Available to occupy. It's on sale now.";
+                cout << "Available to occupy. It's listed now.";
             }
             else
             {
-                cout << "Available to occupy, but not on sale currently.";
+                cout << "Available to occupy, but is not listed currently.";
             }
         }
         else

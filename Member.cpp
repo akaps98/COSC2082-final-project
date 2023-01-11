@@ -130,7 +130,6 @@ void Member::acceptRequest(vector<Member> &test){ // HomeOwner perspective
                     occupier.setOccupy(true);
                     occupier.setOwnerName(this->username);
                     this->house.setOccupierName(occupier.getusername());
-                    cout << occupier.username << ": " << occupier.ownerName << "\n"; 
                 }
             }
 		this->house.changeOccupied();
