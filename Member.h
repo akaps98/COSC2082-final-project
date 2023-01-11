@@ -10,6 +10,7 @@
 
 #include "House.h"
 #include "Function.h"
+#include "Request.h"
 
 using std::string;
 using std::cout;
@@ -26,17 +27,27 @@ private:
     vector<string> comment;
     vector<int> rating;
     bool occupy;
+    Member *houseOwner = nullptr;
+    string ownerName;
 
 public:
     Member() {};
 
-    Member(string username, string password, string phoneNumber, double credit, House house, vector<int> rating, vector<string> comment, bool occupy);
+    Member(string username, string password, string phoneNumber, double credit, House house, vector<int> rating, vector<string> comment, string ownerName, bool occupy);
 
     Member registration(vector<Member> memeberList);
 
     int getAvg();
+    Request rq;
 
     // getter
+    void checkOut(Member &owner); // Occupier will be notified and will be ask to give house rating, comments (Di will do it); empty the owner request and change the occupy value
+//    //RIght here the homeowner will be asked to rate the occupier and comment him (Di will do it).
+    void acceptRequest(vector<Member> &test); // Both view and accept
+
+    void ratingOccupier(Member &occupier);
+
+    void changeHouseOccupied();
 
     string getusername();
 
@@ -53,6 +64,10 @@ public:
     vector<string> getComment();
 
     bool getOccupy();
+
+    Member getHouseOwner();
+
+    string getOwnerName();
 
     // setter
 
@@ -71,6 +86,17 @@ public:
     void setComment(vector<string> comment);
 
     void setOccupy(bool occupy);
+
+    void setHouseOwner(Member &houseOwner);
+
+    void setOwnerName(string ownerName);
+    
+    void setHouseOccupier(string occupierName);
+
+    void setHouseRating(vector<int> ratingList);
+
+    void setHouseComment(vector<string> commentList);
+
 };
 
 #endif

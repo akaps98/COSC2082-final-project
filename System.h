@@ -23,6 +23,7 @@ using std::vector;
 using std::fstream;
 
 class System {
+
 private:
     vector<Member> memberList;
     vector<House> houseList;
@@ -62,7 +63,13 @@ public:
 
     void pushMemberList(Member member);
 
+    void setMemberList(vector<Member> memberList);
+
     void pushHouseList(House house);
+    string phoneOwner = "";
+    string phoneOcc = "";
+    int requiredCreOwner = 0;
+
 };
 
 #endif
