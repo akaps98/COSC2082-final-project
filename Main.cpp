@@ -53,7 +53,7 @@ int main()
                 "Group: Group Name\n"
                 "s3916884, Kang Junsik\n"
                 "s3864235, Lee Seungmin\n"
-                "s3926977, Di Doan\n"
+                "s3926977, Doan Thien Di\n"
                 "s3836278, Mai Le Anh Huy\n"
                 "------------------------\n";
         cout << "Use the app as: \n";
