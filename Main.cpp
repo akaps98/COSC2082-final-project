@@ -248,23 +248,15 @@ int main()
                             case 'Y':
                             case 'y':
 
-                                // cout<<owner[pick-1].getusername();
-                                // sys.phoneOwner = owner[pick-1].getphoneNumber();
-
                                 for (int i = 0; i < (int)sys.getMemberList().size(); i++)
                                 {
                                     if (sys.getMemberList().at(i).getphoneNumber() == owner[pick - 1].getphoneNumber())
                                     {
                                         vtmb.at(i).rq.requests += newMember.getphoneNumber() + " ";
-                                        // loggedInMember.getphoneNumber()
-
-                                        // cout<<vtmb.at(i).rq.requests.at(0);
+    
                                     }
                                 }
-                                // Wrong Because this will add and subtract credit BEFORE user is accepted, the fix is below
-                                //  sys.requiredCreOwner = owner[pick-1].getHouse().getRequiredCredit();
-                                //  loggedInMember.setcredit(
-                                // 		 loggedInMember.getcredit()-huser.getRequiredCredit());
+    
                                 cout << "Successfully send a request to the house owner!\n";
 
                                 break;
@@ -484,23 +476,14 @@ int main()
                     case 'Y':
                     case 'y':
 
-                        // cout<<owner[pick-1].getusername();
-                        // sys.phoneOwner = owner[pick-1].getphoneNumber();
-
                         for (int i = 0; i < (int)sys.getMemberList().size(); i++)
                         {
                             if (sys.getMemberList().at(i).getphoneNumber() == owner[pick - 1].getphoneNumber())
                             {
                                 vtmb.at(i).rq.requests += loggedInMember.getphoneNumber() + " ";
-                                // loggedInMember.getphoneNumber()
-
-                                // cout<<vtmb.at(i).rq.requests.at(0);
                             }
                         }
-                        // Wrong Because this will add and subtract credit BEFORE user is accepted, the fix is below
-                        //  sys.requiredCreOwner = owner[pick-1].getHouse().getRequiredCredit();
-                        //  loggedInMember.setcredit(
-                        // 		 loggedInMember.getcredit()-huser.getRequiredCredit());
+
                         cout << "Successfully send a request to the house owner!\n";
 
                         break;
@@ -531,11 +514,7 @@ int main()
                             sys.phoneOcc = m.rq.requests;
                             break;
                         }
-                        // if(m.rq.requests.find(m.getphoneNumber())!=-1){
-                        //        cout<< m.rq.requests;
-                        //     sys.phoneOcc = m.getphoneNumber();
-                        //     break;
-                        // }
+
                     }
                 }
                 else if (memberChoice == "7")
