@@ -265,7 +265,7 @@ int main()
                             case 'N':
                             case 'n':
                             {
-                                goto again1;
+                                goto walkagainstthewind;
                             }
                             case 'M':
                             case 'm':
