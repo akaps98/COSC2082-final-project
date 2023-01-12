@@ -209,12 +209,12 @@ int main()
                             }
                             int pick = 0;
                             House huser;
-                        again1:
+                        walkagainstthewind:
                             cout << "Choose a house to request base on the number: \n";
                             cin >> pick;
                             if (!(pick >= 1 && pick <= i))
                             {
-                                goto again1; // Bad practice but we will use it
+                                goto walkagainstthewind; // Bad practice but we will use it
                             }
                             // House is chosen
                             huser = res[pick - 1];
