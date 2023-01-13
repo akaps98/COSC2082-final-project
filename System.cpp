@@ -420,7 +420,7 @@ Member System::listHouseAvailable(Member member, vector<House> houseList)
 
                 while (true)
                 {
-                    cout << "Enter a end point in ddmmyyyy: \n";
+                    cout << "Enter a end point in yyyymmdd: \n";
                     do
                     {
                         getline(cin, endPoint);
